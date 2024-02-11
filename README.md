@@ -40,19 +40,28 @@ React를 사용하지 않고, 단순히 JS만으로도 SPA를 만들 수 있지�
 <table>
 <tr>
   <th>node_modules</th>
-  <td></td>
+  <td>
+    모든 라이브러리의 소스코드를 모아놓은 폴더
+  </td>
 </tr>
   <tr>
-  <th>node_modules</th>
-  <td></td>
+  <th>public</th>
+  <td>static 파일을 모아놓는 곳, html파일이나 이미지 파일등을 잠깐 모아놓고 싶을때</td>
 </tr>
 <tr>
-  <th>node_modules</th>
-  <td></td>
+  <th>src</th>
+  <td>
+    여러분들이 코드를 짜는 곳임(소스코드 보관함)<br/><br/>
+    ✔️ App.js : 메인 페이지<br/>
+    ● 웹페이지는 html파일들로 이루어져있는데, 지금 App.js를 보면 js파일안에 html코드를 짰는데도, 브라우저에서 잘 띄워주는 이유?<br/>
+    src/index.js라는 파일이 app.js에 있던 html들을 public/index.html에 집어넣어줍니다.
+  </td>
 </tr>
 <tr>
-  <th>node_modules</th>
-  <td></td>
+  <th>package.json</th>
+  <td>
+    프로젝트 정보들이 쭉 들어가있음(평소에 건들일이 거의 없음)
+  </td>
 </tr>
 </table>
 </details>
