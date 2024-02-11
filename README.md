@@ -34,3 +34,25 @@ React를 사용하지 않고, 단순히 JS만으로도 SPA를 만들 수 있지�
 - React를 사용하면 html 재사용 굳<br/>
 - React를 알면, 같은 문법으로 React Native를 사용해서 모바일 앱을 만들 수 있음<br/>
 </details>
+
+<details>
+<summary>☑️ 간단한 CRA 폴더 구조 설명</summary><br/>
+<table>
+<tr>
+  <th>node_modules</th>
+  <td></td>
+</tr>
+  <tr>
+  <th>node_modules</th>
+  <td></td>
+</tr>
+<tr>
+  <th>node_modules</th>
+  <td></td>
+</tr>
+<tr>
+  <th>node_modules</th>
+  <td></td>
+</tr>
+</table>
+</details>
