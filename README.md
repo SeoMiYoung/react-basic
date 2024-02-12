@@ -71,3 +71,8 @@ React를 사용하지 않고, 단순히 JS만으로도 SPA를 만들 수 있지�
 JSX란, 자바스크립트안에서 HTML을 쉽게 작성할 수 있게 도와주는 자바스크립트에서 쓸 수 있는 언어입니다. 이걸 쓰는 이유는 원래 React에서 div태그 하나만 만들려고 해도, React.createElement('div', null, 'Hello World')이렇게 코드를 짜야합니다. 근데 이렇게 하나하나 태그를 만들면 너무 힘들잖아요...그래서 친절한 사람들이 JSX같은걸 써서 좀 쉽게 태그를 만들 수 있게 해준겁니다.<br/>
 참고로, JSX안에서는 class라고 쓰면 안되고, className이라고 써야합니다..!
 </details>
+
+<details>
+<summary>☑️ state를 쓰는 이유?</summary><br/>
+왜 일반변수가 아니라 state를 쓰냐면, 일반 변수는 값이 변경되었을 때 html을 재랜더링해주지 않지만, state를 쓰면 값에 변화가 생겼을 때, html을 자동 재랜더링 시켜주기 때문입니다!
+</details>
