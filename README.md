@@ -88,3 +88,17 @@ setStyle(copy); // 이렇게 해도 '치마'가 '청치마'로 바뀌지 않음
 
 그 이유는, array/object 담은 변수엔 화살표(저장된 주소 위치를 가리키는)만 저장되는데, 그 안에 값을 변경해도 화살표 자체에는 변경이 없다고 생각되기 때문!
 </details>
+
+<details>
+<summary>☑️ component</summary><br/>
+✔️ component 만드는 법<br/>
+1. 다른 함수 바깥에 function을 만든다. (작명은 영어 대문자로 시작)<br/>
+2. return()안에 내가 축약할 html을 담는다. (단, 하나의 태그로 시작해서 하나로 끝나야 함)<br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;- 의미없는 div태그가 싫으면 fragment를 사용하면 된다.<br/>
+3. 컴포넌트를 마음에 드는 곳에 html태그 형식으로 가져다가 쓴다.
+<br/><br/>
+✔️ 어떤걸 컴포넌트로 만들면 좋을까?<br/>
+- 반복적인 html을 축약할 때<br/>
+- 큰 페이지들<br/>
+- UI가 자주 변경되는 것들
+</details>
