@@ -55,6 +55,16 @@ function App() {
                 {good[index]}
               </h4>
               <p>2월 17일 발행</p>
+              <button onClick={()=>{
+                let copyTitle = [...title];
+                let copyGood = [...good];
+
+                copyTitle.splice(index, 1);
+                copyGood.splice(index, 1);
+
+                setTitle(copyTitle);
+                setGood(copyGood);
+              }}>삭제</button>
             </div>
           )
         })
