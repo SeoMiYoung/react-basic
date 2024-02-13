@@ -120,7 +120,7 @@ setStyle(copy); // 이렇게 해도 '치마'가 '청치마'로 바뀌지 않음
 </details>
 
 <details>
-<summary>☑️ 반복문을 놀려서 태그를 만들고 싶다면?</summary><br/>
+<summary>☑️ 반복문을 돌려서 태그를 만들고 싶다면?</summary><br/>
 만약에 안녕이라는 텍스트가 담긴, div태그 세개를 반복문을 통해 놓고 싶다고 하자.<br/><br/>
 ✔️ in JSX 안<br/><br/>
   
