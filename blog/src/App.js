@@ -67,17 +67,21 @@ function App() {
         // 안타깝게도, 중괄호안에는 if문같은거 못씀
           // 왜냐면, 여기는 html작성 공간이여서..
           // 대용으로 삼항연산자 사용
-        (showModal == true) ? <MakeModal/> : null
+        // props 전달
+          // 작명={title}
+            // 작명이라는 이름으로 title 값을 전달하겠다
+            // 보통 기존과 같은 이름으로 작명함
+        (showModal == true) ? <MakeModal title={title}/> : null
       }
     </div> // 전체를 감싼 태그 
   );
 }
 
 // 컴포넌트 만들기
-function MakeModal() {
+function MakeModal(props) { // props는 작명임(자유)
   return (
     <div className='modal'>
-      <h4>제목</h4>
+      <h4>{props.title[0]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
     </div>
