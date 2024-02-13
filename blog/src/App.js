@@ -23,7 +23,7 @@ function App() {
       <div className="black-nav">
         <h4>React Blog</h4>
       </div>
-      <button onClick={()=>{
+      {/* <button onClick={()=>{
         let copy = [...title];
         copy.sort(); // 가나다순 정렬
         setTitle(copy);
@@ -36,7 +36,7 @@ function App() {
         let copy = [...title];
         copy[0] = '여성 코트 추천';
         setTitle(copy);
-      }}>성별 바꾸기</button>
+      }}>성별 바꾸기</button> */}
       
       {
         // 안타깝게도 for반복문 사용 불가
@@ -71,7 +71,7 @@ function App() {
           // 작명={title}
             // 작명이라는 이름으로 title 값을 전달하겠다
             // 보통 기존과 같은 이름으로 작명함
-        (showModal == true) ? <MakeModal title={title} color='pink'/> : null
+        (showModal == true) ? <MakeModal title={title} setTitle={setTitle} color='pink'/> : null
       }
     </div> // 전체를 감싼 태그 
   );
@@ -84,6 +84,11 @@ function MakeModal(props) { // props는 작명임(자유)
       <h4>{props.title[0]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button onClick={()=>{
+        let copy = [...props.title];
+        copy[0] = '여성 코트 추천';
+        props.setTitle(copy);
+      }}>글수정</button>
     </div>
   );
 }
