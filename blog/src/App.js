@@ -54,12 +54,7 @@ function App() {
       </div>
       <div className="list">
         <h4 onClick={()=>{
-          if(showModal == true) {
-            setShowModal(false);
-          }
-          else {
-            setShowModal(true);
-          }
+          setShowModal(!showModal);
         }}>
           {title[2]}
           <span onClick={clickGood}>👍</span>
