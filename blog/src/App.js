@@ -20,11 +20,6 @@ function App() {
   // input 내용 저장
   let [inputText, setInputText] = useState('');
 
-  // onClick
-  function clickGood() {
-    // setGood(good[0]+1);
-  }
-
   return (
     <div className="App">
       <div className="black-nav">
@@ -66,14 +61,23 @@ function App() {
               </h4>
               <p>2월 17일 발행</p>
               <button onClick={()=>{
-                let copyTitle = [...title];
-                let copyGood = [...good];
+                if(contentNum == index+1) { // 삭제하려고 하는 글의 모달창이 띄워져있다면
+                  alert("관련 글을 보고 있어서 삭제가 불가능합니다!");
+                }
+                else {
+                  let copyTitle = [...title];
+                  let copyGood = [...good];
+  
+                  copyTitle.splice(index, 1);
+                  copyGood.splice(index, 1);
+  
+                  setTitle(copyTitle);
+                  setGood(copyGood);
 
-                copyTitle.splice(index, 1);
-                copyGood.splice(index, 1);
-
-                setTitle(copyTitle);
-                setGood(copyGood);
+                  if(index+1 < contentNum) { // 삭제하려고 하는 글이 지금 보고 있는 글보다 앞에 있는 경우
+                    setContentNum(contentNum-1);
+                  }
+                }
               }}>삭제</button>
             </div>
           )
@@ -89,7 +93,7 @@ function App() {
         setTitle(newTitle);
         setGood(newGood);
 
-        setContentNum(contentNum++);
+        setContentNum(++contentNum);
         document.querySelector('input').value = ''; // input 요소의 화면에 보여지는 내용도 지움
       }}>글 추가</button>
       { // javascript넣기 위해 중괄호
