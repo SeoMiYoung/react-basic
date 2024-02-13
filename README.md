@@ -102,3 +102,58 @@ setStyle(copy); // 이렇게 해도 '치마'가 '청치마'로 바뀌지 않음
 - 큰 페이지들<br/>
 - UI가 자주 변경되는 것들
 </details>
+
+<details>
+<summary>☑️ Warning: Each child in a list should have a unique "key" prop</summary><br/>
+해당 에러가 발생하는 이유는, 반복문으로 html을 생성하면 key={html마다 다른 숫자}를 추가해야하기 때문입니다.<br/>
+반복문을 돌릴때마다 생성한 html들은 유니크한 key를 가져야하기 때문입니다.<br/>
+  
+```
+글제목.map(function(data, index){
+  return (
+    <div key={index}>
+      ~~~~
+    </div>
+  )
+})
+```
+</details>
+
+<details>
+<summary>☑️ 반복문을 돌려서 태그를 만들고 싶다면?</summary><br/>
+만약에 안녕이라는 텍스트가 담긴, div태그 세개를 반복문을 통해 놓고 싶다고 하자.<br/><br/>
+✔️ in JSX 안<br/><br/>
+  
+```
+function App() {
+  let [title, setTitle] = useState(['제목1', '제목2', '제목3']);
+  return (
+    <div>
+      { // JSX안에서 자바스크립트 코드를 위한 중괄호
+        title.map(function(data, index) { // title의 데이터 갯수만큼 반복 실행(3번 반복)
+          return (
+            <div>안녕</div>
+          )
+        });
+      }
+    </div>
+  )
+}
+```
+
+✔️ in JSX 밖<br/>
+
+```
+function App() {
+  var 어레이 = [];
+  for (var i=0; i<3; i++) {
+    어레이.push(<div>안녕</div>)
+  }
+  return (
+    <div>
+      {어레이}
+    </div>
+  )
+}
+```
+</details>
