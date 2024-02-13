@@ -14,7 +14,7 @@ function App() {
   let [good, setGood] = useState([0,0,0]);
   
   // 현재 보고 있는 글
-  let [contentNum, setContentNum] = useState(1);
+  let [contentNum, setContentNum] = useState(1); // 1번 글을 보고 있습니다
 
   // onClick
   function clickGood() {
@@ -35,10 +35,13 @@ function App() {
             <div className='list' key={index}>
               <h4 onClick={()=>{
                 setContentNum(index+1);
-                setShowModal(!showModal);
+                setShowModal(true);
               }}>
                 {title[index]}
-                <span onClick={()=>{
+                <span onClick={(e)=>{
+                  // 이벤트버블링 막기
+                  e.stopPropagation();
+                  
                   // 좋아요 하나 늘리기
                   let copy = [...good];
                   ++copy[index];
@@ -51,7 +54,9 @@ function App() {
           )
         })
       }
+      <input type="text">
 
+      </input>
       { // javascript넣기 위해 중괄호
         // 안타깝게도, 중괄호안에는 if문같은거 못씀
           // 왜냐면, 여기는 html작성 공간이여서..
