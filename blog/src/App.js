@@ -13,6 +13,9 @@ function App() {
   // 좋아요 개수
   let [good, setGood] = useState([0,0,0]);
   
+  // 현재 보고 있는 글
+  let [contentNum, setContentNum] = useState(1);
+
   // onClick
   function clickGood() {
     // setGood(good[0]+1);
@@ -23,21 +26,6 @@ function App() {
       <div className="black-nav">
         <h4>React Blog</h4>
       </div>
-      {/* <button onClick={()=>{
-        let copy = [...title];
-        copy.sort(); // 가나다순 정렬
-        setTitle(copy);
-      }}>
-        가나다순 정렬
-      </button>
-      <button onClick={()=>{
-        // 일부만 바꿔서 state 변경 함수에 넣기(확장성 있는 코드)
-        // 화살표를 새로 바꿔주세요~
-        let copy = [...title];
-        copy[0] = '여성 코트 추천';
-        setTitle(copy);
-      }}>성별 바꾸기</button> */}
-      
       {
         // 안타깝게도 for반복문 사용 불가
           // for문법은 JSX안에서 사용 불가능
@@ -46,6 +34,7 @@ function App() {
           return (
             <div className='list' key={index}>
               <h4 onClick={()=>{
+                setContentNum(index+1);
                 setShowModal(!showModal);
               }}>
                 {title[index]}
@@ -71,7 +60,7 @@ function App() {
           // 작명={title}
             // 작명이라는 이름으로 title 값을 전달하겠다
             // 보통 기존과 같은 이름으로 작명함
-        (showModal == true) ? <MakeModal title={title} setTitle={setTitle} color='pink'/> : null
+        (showModal == true) ? <MakeModal contentNum={contentNum} title={title} setTitle={setTitle} color='pink'/> : null
       }
     </div> // 전체를 감싼 태그 
   );
@@ -81,7 +70,7 @@ function App() {
 function MakeModal(props) { // props는 작명임(자유)
   return (
     <div className='modal' style={{background: props.color}}>
-      <h4>{props.title[0]}</h4>
+      <h4>{props.title[props.contentNum-1]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
       <button onClick={()=>{
