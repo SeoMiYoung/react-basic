@@ -38,6 +38,8 @@ function App() {
             <div className='list' key={index}>
               <h4 onClick={()=>{
                 setContentNum(index+1);
+
+
                 setShowModal(true);
               }}>
                 {title[index]}
@@ -66,8 +68,9 @@ function App() {
 
         setTitle(newTitle);
         setGood(newGood);
-        
+
         setContentNum(contentNum++);
+        document.querySelector('input').value = ''; // input 요소의 화면에 보여지는 내용도 지움
       }}>글 추가</button>
       { // javascript넣기 위해 중괄호
         // 안타깝게도, 중괄호안에는 if문같은거 못씀
