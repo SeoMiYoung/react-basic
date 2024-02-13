@@ -40,10 +40,11 @@ function App() {
       
       {
         // 안타깝게도 for반복문 사용 불가
+          // for문법은 JSX안에서 사용 불가능
           // 대용으로 map함수 사용 가능
         title.map(function(data, index) {
           return (
-            <div className='list'>
+            <div className='list' key={index}>
               <h4 onClick={()=>{
                 setShowModal(!showModal);
               }}>
