@@ -9,9 +9,10 @@ function App() {
   // a 작명: state에 보관했던 자료가 나옴
   // b 작명: state 변경을 도와주는 함수
   let [title, setTitle] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
-  let [good, setGood] = useState([0,0,0]);
   let [showModal, setShowModal] = useState(false);
-
+  // 좋아요 개수
+  let [good, setGood] = useState([0,0,0]);
+  
   // onClick
   function clickGood() {
     // setGood(good[0]+1);
@@ -36,32 +37,6 @@ function App() {
         copy[0] = '여성 코트 추천';
         setTitle(copy);
       }}>성별 바꾸기</button>
-      {/* <div className="list">
-        <h4>
-          {title[0]}
-          <span>👍</span>
-          0
-        </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className="list">
-        <h4>
-          {title[1]}
-          <span>👍</span>
-          0
-        </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className="list">
-        <h4 onClick={()=>{
-          setShowModal(!showModal);
-        }}>
-          {title[2]}
-          <span onClick={clickGood}>👍</span>
-          0
-        </h4>
-        <p>2월 17일 발행</p>
-      </div> */}
       
       {
         // 안타깝게도 for반복문 사용 불가
@@ -69,7 +44,18 @@ function App() {
         title.map(function(data, index) {
           return (
             <div className='list'>
-              <h4>{title[index]}</h4>
+              <h4 onClick={()=>{
+                setShowModal(!showModal);
+              }}>
+                {title[index]}
+                <span onClick={()=>{
+                  // 좋아요 하나 늘리기
+                  let copy = [...good];
+                  ++copy[index];
+                  setGood(copy);
+                }}>👍</span>
+                {good[index]}
+              </h4>
               <p>2월 17일 발행</p>
             </div>
           )
