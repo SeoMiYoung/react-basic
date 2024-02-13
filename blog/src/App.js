@@ -8,13 +8,14 @@ import { useState } from 'react';
 function App() {
   // a 작명: state에 보관했던 자료가 나옴
   // b 작명: state 변경을 도와주는 함수
-  let [title, setTitle] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
+  let [title, setTitle] = useState(['등록금 고지서 나온 날', '떡볶이가 땡긴 날', '하루종일 논 날']);
   let [showModal, setShowModal] = useState(false);
   // 좋아요 개수
   let [good, setGood] = useState([0,0,0]);
   
   // 현재 보고 있는 글
   let [contentNum, setContentNum] = useState(1); // 1번 글을 보고 있습니다
+  // let [previousContentNum, setPreviousContentNum] = useState(1);
 
   // input 내용 저장
   let [inputText, setInputText] = useState('');
@@ -27,7 +28,7 @@ function App() {
   return (
     <div className="App">
       <div className="black-nav">
-        <h4>React Blog</h4>
+        <h4>Miyoung's Blog</h4>
       </div>
       {
         // 안타깝게도 for반복문 사용 불가
@@ -37,10 +38,19 @@ function App() {
           return (
             <div className='list' key={index}>
               <h4 onClick={()=>{
-                setContentNum(index+1);
+                setContentNum(index+1); // index+1번 글 보고 있다고 설정
 
-
-                setShowModal(true);
+                if(showModal == true) { // 이미 모달창이 띄워져있다면
+                  if(contentNum == index+1) { // 이미 보고 있는 content라면
+                    setShowModal(false); // 모달창 닫기
+                  }
+                  else { // 새로운 글 클릭
+                    setShowModal(true);
+                  }
+                }
+                else { // 모달창이 닫혀져 있다면
+                  setShowModal(true); // 모달창을 띄운다
+                }
               }}>
                 {title[index]}
                 <span onClick={(e)=>{
