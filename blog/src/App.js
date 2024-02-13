@@ -53,7 +53,14 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
       <div className="list">
-        <h4>
+        <h4 onClick={()=>{
+          if(showModal == true) {
+            setShowModal(false);
+          }
+          else {
+            setShowModal(true);
+          }
+        }}>
           {title[2]}
           <span onClick={clickGood}>👍</span>
           0
