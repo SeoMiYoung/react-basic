@@ -10,6 +10,7 @@ function App() {
   // b 작명: state 변경을 도와주는 함수
   let [title, setTitle] = useState(['남자 코트 추천', '강남 우동 맛집', '파이썬 독학']);
   let [good, setGood] = useState([0,0,0]);
+  let [showModal, setShowModal] = useState(false);
 
   // onClick
   function clickGood() {
@@ -60,7 +61,12 @@ function App() {
         <p>2월 17일 발행</p>
       </div>
 
-      <MakeModal></MakeModal>
+      { // javascript넣기 위해 중괄호
+        // 안타깝게도, 중괄호안에는 if문같은거 못씀
+          // 왜냐면, 여기는 html작성 공간이여서..
+          // 대용으로 삼항연산자 사용
+        (showModal == true) ? <MakeModal/> : null
+      }
     </div>
   );
 }
