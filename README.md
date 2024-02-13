@@ -117,5 +117,43 @@ setStyle(copy); // 이렇게 해도 '치마'가 '청치마'로 바뀌지 않음
   )
 })
 ```
+</details>
 
+<details>
+<summary>☑️ 반복문을 놀려서 태그를 만들고 싶다면?</summary><br/>
+만약에 안녕이라는 텍스트가 담긴, div태그 세개를 반복문을 통해 놓고 싶다고 하자.<br/><br/>
+✔️ in JSX 안<br/><br/>
+  
+```
+function App() {
+  let [title, setTitle] = useState(['제목1', '제목2', '제목3']);
+  return (
+    <div>
+      { // JSX안에서 자바스크립트 코드를 위한 중괄호
+        title.map(function(data, index) { // title의 데이터 갯수만큼 반복 실행(3번 반복)
+          return (
+            <div>안녕</div>
+          )
+        });
+      }
+    </div>
+  )
+}
+```
+
+✔️ in JSX 밖<br/>
+
+```
+function App() {
+  var 어레이 = [];
+  for (var i=0; i<3; i++) {
+    어레이.push(<div>안녕</div>)
+  }
+  return (
+    <div>
+      {어레이}
+    </div>
+  )
+}
+```
 </details>
