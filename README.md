@@ -102,3 +102,20 @@ setStyle(copy); // 이렇게 해도 '치마'가 '청치마'로 바뀌지 않음
 - 큰 페이지들<br/>
 - UI가 자주 변경되는 것들
 </details>
+
+<details>
+<summary>☑️ Warning: Each child in a list should have a unique "key" prop</summary><br/>
+해당 에러가 발생하는 이유는, 반복문으로 html을 생성하면 key={html마다 다른 숫자}를 추가해야하기 때문입니다.<br/>
+반복문을 돌릴때마다 생성한 html들은 유니크한 key를 가져야하기 때문입니다.<br/>
+  
+```
+글제목.map(function(data, index){
+  return (
+    <div key={index}>
+      ~~~~
+    </div>
+  )
+})
+```
+
+</details>
