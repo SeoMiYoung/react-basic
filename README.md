@@ -94,6 +94,6 @@ setStyle(copy); // 이렇게 해도 '치마'가 '청치마'로 바뀌지 않음
 ✔️ component 만드는 법<br/>
 1. 다른 함수 바깥에 function을 만든다. (작명은 영어 대문자로 시작)<br/>
 2. return()안에 내가 축약할 html을 담는다. (단, 하나의 태그로 시작해서 하나로 끝나야 함)<br/>
-  &nbsp;&nbsp;&nbsp;&nbsp;- 의미없는 div태그가 싫으면 <></>(fragment)를 사용하면 된다.<br/>
+  &nbsp;&nbsp;&nbsp;&nbsp;- 의미없는 div태그가 싫으면 '<></>'(fragment)를 사용하면 된다.<br/>
 3. 컴포넌트를 마음에 드는 곳에 html태그 형식으로 가져다가 쓴다.
 </details>
