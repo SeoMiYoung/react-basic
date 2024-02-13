@@ -36,7 +36,7 @@ function App() {
         copy[0] = '여성 코트 추천';
         setTitle(copy);
       }}>성별 바꾸기</button>
-      <div className="list">
+      {/* <div className="list">
         <h4>
           {title[0]}
           <span>👍</span>
@@ -61,7 +61,20 @@ function App() {
           0
         </h4>
         <p>2월 17일 발행</p>
-      </div>
+      </div> */}
+      
+      {
+        // 안타깝게도 for반복문 사용 불가
+          // 대용으로 map함수 사용 가능
+        title.map(function(data, index) {
+          return (
+            <div className='list'>
+              <h4>{title[index]}</h4>
+              <p>2월 17일 발행</p>
+            </div>
+          )
+        })
+      }
 
       { // javascript넣기 위해 중괄호
         // 안타깝게도, 중괄호안에는 if문같은거 못씀
@@ -69,7 +82,7 @@ function App() {
           // 대용으로 삼항연산자 사용
         (showModal == true) ? <MakeModal/> : null
       }
-    </div>
+    </div> // 전체를 감싼 태그 
   );
 }
 
