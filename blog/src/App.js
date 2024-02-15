@@ -130,10 +130,14 @@ function MakeModal(props) { // props는 작명임(자유)
 class MakeModal2 extends React.Component {
   constructor() {
     super();
+    this.state = {
+      name : 'Seo Mi Young',
+      age : 25
+    }
   }
   render() {
     return (
-      <div>안녕</div>
+      <div>안녕 난 {this.state.name}</div>
     )
   }
 }
