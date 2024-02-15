@@ -125,4 +125,16 @@ function MakeModal(props) { // props는 작명임(자유)
     </div>
   );
 }
+
+// class형식으로 컴포넌트 만들기(옛방식)
+class MakeModal2 extends React.Component {
+  constructor() {
+    super();
+  }
+  render() {
+    return (
+      <div>안녕</div>
+    )
+  }
+}
 export default App;
