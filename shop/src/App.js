@@ -4,13 +4,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data.js';
-import Card from './component/Card/Card.js'
+import Card from './component/Card/Card.js';
+import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   let [shoes] = useState(data);
 
   return (
     <div className="App">
+      {/* react-router-dom */}
+      <Routes>
+        <Route path="/" element={<div>메인 페이지임</div>} />
+        <Route path="/detail" element={<div>상세 페이지임</div>} />
+      </Routes>
+
       {/* 참고로 Bootstrap에서 가져온것도 컴포넌트에 className을 붙혀서 추가로 커스텀할 수 있음 */}
       <Navbar bg="dark" variant="dark">
         <Container>
