@@ -2,10 +2,9 @@ import { useState } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import bg from './img/bg.png';
 import data from './data.js';
-import Card from './component/Card/Card.js';
 import Detail from './page/detail/Detail.js';
+import Home from './page/home/Home.js';
 import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -32,25 +31,7 @@ function App() {
 
       {/* react-router-dom */}
       <Routes>
-        <Route path="/" element={
-          <>
-            {/* 메인 백그라운드 이미지 */}
-            <div className="main-bg" style={{ backgroundImage: 'url('+bg+')'}}></div>
-
-            {/* 상품 레이아웃 3개 만들기(Bootstrap 사용) */}
-            <div className="container">
-              <div className="row">
-                {
-                  shoes.map(function(data, index) {
-                    return (
-                      <Card shoes={shoes[index]} imgSrc={'https://codingapple1.github.io/shop/shoes'+ (index+1) +'.jpg'}/>
-                    )
-                  })
-                }
-              </div>
-            </div>
-          </> 
-        } />
+        <Route path="/" element={<Home shoes={shoes}/>} />
         <Route path="/detail" element={<Detail/>} />
       </Routes>
     </div>
