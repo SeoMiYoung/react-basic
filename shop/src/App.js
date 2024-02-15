@@ -32,7 +32,7 @@ function App() {
           {
             shoes.map(function(data, index) {
               return (
-                <Card index={index} shoes={shoes} imgSrc={'https://codingapple1.github.io/shop/shoes'+ (index+1) +'.jpg'}/>
+                <Card shoes={shoes[index]} imgSrc={'https://codingapple1.github.io/shop/shoes'+ (index+1) +'.jpg'}/>
               )
             })
           }
