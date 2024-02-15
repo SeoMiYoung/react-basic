@@ -24,6 +24,11 @@ function App() {
         </Container>
       </Navbar>
 
+      {/* 페이지 이동 버튼은 Link */}
+      <Link to="/">홈</Link>
+      <br/>
+      <Link to="/detail">상세페이지</Link>
+
       {/* react-router-dom */}
       <Routes>
         <Route path="/" element={
