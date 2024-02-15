@@ -4,9 +4,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data.js';
+import Card from './component/Card/Card.js'
 
 function App() {
   let [shoes] = useState(data);
+
   return (
     <div className="App">
       {/* 참고로 Bootstrap에서 가져온것도 컴포넌트에 className을 붙혀서 추가로 커스텀할 수 있음 */}
@@ -27,21 +29,13 @@ function App() {
       {/* 상품 레이아웃 3개 만들기(Bootstrap 사용) */}
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%" />
-            <h4>{shoes[0].title}</h4>
-            <p>{shoes[0].price}</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%" />
-            <h4>{shoes[1].title}</h4>
-            <p>{shoes[1].price}</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%" />
-            <h4>{shoes[2].title}</h4>
-            <p>{shoes[2].price}</p>
-          </div>
+          {
+            shoes.map(function(data, index) {
+              return (
+                <Card index={index} shoes={shoes} imgSrc={'https://codingapple1.github.io/shop/shoes'+ (index+1) +'.jpg'}/>
+              )
+            })
+          }
         </div>
       </div>
     </div> 
