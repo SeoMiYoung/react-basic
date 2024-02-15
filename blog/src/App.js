@@ -106,6 +106,7 @@ function App() {
             // 보통 기존과 같은 이름으로 작명함
         (showModal == true) ? <MakeModal contentNum={contentNum} title={title} setTitle={setTitle} color='pink'/> : null
       }
+
     </div> // 전체를 감싼 태그 
   );
 }
@@ -127,6 +128,8 @@ function MakeModal(props) { // props는 작명임(자유)
 }
 
 // class형식으로 컴포넌트 만들기(옛방식)
+// 그러나, React에서는 함수형 컴포넌트와 클래스 컴포넌트를 함께 사용하는 것을 지양하는게 좋습니다.
+// 그래서 그런지...이 코드만 추가하면 잘 안돌아감;;..
 class MakeModal2 extends React.Component {
   constructor() {
     super();
@@ -137,7 +140,12 @@ class MakeModal2 extends React.Component {
   }
   render() {
     return (
-      <div>안녕 난 {this.state.name}</div>
+      <div>
+        안녕 난 {this.state.name}
+        <button onClick={()=>{ // 버튼을 누르면 바꿔줌
+          this.setState({name : 'Ming'})
+        }}>버튼</button>
+      </div>
     )
   }
 }
