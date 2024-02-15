@@ -193,5 +193,26 @@ http://miyoung.com/여기에 배포하는 경우에는 설정없이 대충해도
 
 이렇게 설정해주면 됩니다.<br/>
 혹시 리액트 라우터가 설치되어있다면 라우터가 제공하는 basename=""속성을 추가하는게 라우팅이 잘될겁니다.
+</details>
+
+<details>
+<summary>☑️ 만든 페이지를 깃헙에 배포하기</summary><br/>
+
+(1) 컴파일(=build)하기<br/>
+여러분의 리액트프로젝트에서 터미널에 "npm run build"입력<br/>
+그러면 여러분의 작업 프로젝트 폴더 내에 build 폴더가 생기는데, 그 안에는 여러분이 짰던 코드가 전부 html/css/js파일로 변환되어 담겨있습니다. 이제 build안에 있는 내용을 모두 서버에 올리면 됩니다. 참고로 index.html이 메인페이지입니다.
+<br/><br/>
+(2) 깃허브에 배포용 레포지토리 파기<br/>
+Github Pages는 특정한 이름의 리포지토리를 통해 정적 웹사이트를 호스팅할 수 있는 기능을 제공합니다. Github Pages를 사용하려면 레포지토리 이름을 특정 형식으로 지정해야합니다. 만약에 여러분의 Github 계정 아이디가 'username'이라고 가정하면, Github Pages를 사용하기 위해서는 다음과 같은 규칙을 따라야합니다. <br/>
+
+- 개인 계정의 경우: 'username.github.io'라는 이름의 레포지토리를 만듭니다.<br/>
+- 프로젝트나 조직 계정의 경우: 'organization.github.io'와 같이 조직 이름을 사용합니다.<br/>
+이렇게 이름을 지정하면 Github는 해당 레포지토리를 Github Pages로 호스팅하게 됩니다. 따라서 정적 웹사이트를 배포하려면 이러한 이름의 레포지토리를 사용해야합니다.<br/><br/>
+
+<img width="550px" src="https://github.com/SeoMiYoung/react-basic/assets/112063987/c3a2867c-a319-48fa-9e9a-84a8c3c05364"/>
+<br/><br/>
+(3) build 폴더 내의 파일을 전부 드래그 앤 드롭하기<br/>
+🔊 주의: build 폴더 자체를 드래그 앤 드롭(x) build 폴더 안의 내용물을 드래그 앤 드롭(o)<br/>
+<img width="550px" src="https://github.com/SeoMiYoung/react-basic/assets/112063987/ce06f55e-d378-4e8f-b475-810974fb678e"/>
 
 </details>
