@@ -256,3 +256,47 @@ Github Pages는 특정한 이름의 리포지토리를 통해 정적 웹사이�
 
 이렇게 /어쩌구/를 뜻하는 process.env.PUBLIC_URL을 더해주면 된다고 합니다. ming.com/어쩌구/ 경로에 리액트로 만든 페이지를 배포할 일이 없다면 굳이 안해도 됩니다.
 </details>
+
+<details>
+<summary>☑️ import, export 문법</summary><br/>
+만약에 App.js에서 data.js파일을 가져다가 쓰고 싶다면...?<br/><br/>
+
+✔️ data.js에서 한개만 내보내고 싶다면?<br/>
+
+```
+// data.js
+let a = 10;
+
+export default a; // export default 변수명;
+```
+```
+// App.js
+import 작명 from './data.js'; // 작명은 자유롭게 하삼
+
+function App() {
+  return (
+    <div>{작명}</div> 
+  )
+}
+```
+<br/>
+✔️ data.js에서 여러개를 내보내고 싶다면?<br/>
+
+```
+// data.js
+let a = 10;
+let b = 20;
+
+export default {a, b}; // export 여러개 하려면 export {변수1, 변수2}
+```
+```
+// App.js
+import {a, b} from './data.js'; // 단, 이 경우 작명 불가 (export했던 변수명 그대로 가져와야함)
+
+function App() {
+  return (
+    <div>{a}</div>
+  )
+}
+```
+</details>
