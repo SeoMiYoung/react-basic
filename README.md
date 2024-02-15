@@ -171,3 +171,72 @@ function App() {
 }
 ```
 </details>
+
+<details>
+<summary>☑️ 만든 리액트 사이트를 build하기</summary><br/>
+여러분이 만든 사이트를 배포하려면 그냥 작업하던 App.js파일을 그대로 올리는게 아니라, build용 파일을 생성하신 후 올려야합니다. 왜냐면 웹 브라우저는 HTML/CSS/JS이 세개의 언어만 해석할 수 있기 때문에 리액트의 이상한 state, jsx이런거? 못알아듣습니다. 그래서 build를 통해 브라우저 친화적인 HTML/CSS/JS파일로 바꿔줘야합니다. 이걸 서버에 올려야 사용자들이 여러분의 사이트를 구경할 수 있습니다.
+<br/><br/>
+✔️ Q) 가지고 있는 웹 서버에 배포를 하고 싶어요.<br/>
+리액트로 열심히 프로젝트 만들고 npm run build 입력하면 build/index.html 파일이 생성됩니다. <br/>
+그리고 서버 API를 "어떤 놈이 메인페이지로 접속하면 /build/index.html 파일을 전송해라"라고 작성하면 됩니다.<br/><br/>
+
+✔️ 배포하기 전 체크할 사항<br/>
+
+(1) 에러만 안나면 됨<br/>
+warning메시지는 사이트 구동에 큰 영향이 없어서 무시해도 됩니다.<br/>
+(2) 경로 설정<br/>
+http://miyoung.com/여기에 배포하는 경우에는 설정없이 대충해도 되지만, http://miyoung.com/blog/ 이런 하위 경로에 배포하고 싶으면 프로젝트에 설정이 따로 필요합니다. 여러분의 프로젝트 파일 중 package.json이라는 파일을 오픈해서
+
+```
+"homepage": "http://miyoung.com/blog",
+```
+
+이렇게 설정해주면 됩니다.<br/>
+혹시 리액트 라우터가 설치되어있다면 라우터가 제공하는 basename=""속성을 추가하는게 라우팅이 잘될겁니다.
+</details>
+
+<details>
+<summary>☑️ 만든 페이지를 깃헙에 배포하기</summary><br/>
+
+(1) 컴파일(=build)하기<br/>
+여러분의 리액트프로젝트에서 터미널에 "npm run build"입력<br/>
+그러면 여러분의 작업 프로젝트 폴더 내에 build 폴더가 생기는데, 그 안에는 여러분이 짰던 코드가 전부 html/css/js파일로 변환되어 담겨있습니다. 이제 build안에 있는 내용을 모두 서버에 올리면 됩니다. 참고로 index.html이 메인페이지입니다.
+<br/><br/>
+(2) 깃허브에 배포용 레포지토리 파기<br/>
+Github Pages는 특정한 이름의 리포지토리를 통해 정적 웹사이트를 호스팅할 수 있는 기능을 제공합니다. Github Pages를 사용하려면 레포지토리 이름을 특정 형식으로 지정해야합니다. 만약에 여러분의 Github 계정 아이디가 'username'이라고 가정하면, Github Pages를 사용하기 위해서는 다음과 같은 규칙을 따라야합니다. <br/>
+
+- 개인 계정의 경우: 'username.github.io'라는 이름의 레포지토리를 만듭니다.<br/>
+- 프로젝트나 조직 계정의 경우: 'organization.github.io'와 같이 조직 이름을 사용합니다.<br/>
+이렇게 이름을 지정하면 Github는 해당 레포지토리를 Github Pages로 호스팅하게 됩니다. 따라서 정적 웹사이트를 배포하려면 이러한 이름의 레포지토리를 사용해야합니다.<br/><br/>
+
+<img width="550px" src="https://github.com/SeoMiYoung/react-basic/assets/112063987/c3a2867c-a319-48fa-9e9a-84a8c3c05364"/>
+<br/><br/>
+(3) build 폴더 내의 파일을 전부 드래그 앤 드롭하기<br/>
+🔊 주의: build 폴더 자체를 드래그 앤 드롭(x) build 폴더 안의 내용물을 드래그 앤 드롭(o)<br/>
+<img width="550px" src="https://github.com/SeoMiYoung/react-basic/assets/112063987/ce06f55e-d378-4e8f-b475-810974fb678e"/>
+<br/><br/>
+(4) 끝<br/>
+이제 10분정도 후에 https://여러분아이디.github.io라고 주소창에 입력하면 여러분의 사이트가 보입니다.
+<br/><br/>
+
+✔️ 이제 여러 repository를 동시에 호스팅해준다고 합니다.<br/>
+일단, 기본적으로 예전에 만들었던 username.github.io라는 레포지토리를 지우면 안됩니다.<br/>
+<br/>
+(1) 아무 레포지토리나 만드세요. 이름은 자유입니다.<br/>
+(2) 아까처럼 build내용을 드래그 앤 드롭하세요.<br/>
+(3) repository setting 메뉴에 들어가서 Github pages부분에 들어갑니다.<br/>
+<img width="550px" src="https://github.com/SeoMiYoung/react-basic/assets/112063987/0a6c17af-e8a0-4f28-a695-d75c2e526edf"/><br/>
+형광펜 부분을 None이 아니라 main이런걸로 바꿔주세요.<br/>
+(4) 끝<br/>
+"username.github.io/repository이름/"으로 들어가시면 확인 가능합니다.<br/>
+<br>
+
+✔️ 첫 페이지 로딩 속도를 빠르게 하려면?<br/>
+원래 리액트나 뷰로 만든 웹앱들은 첫 방문시 필요한 파일을 전부 로드합니다. 전송되는 파일 사이즈를 조금이라도 줄여서 빠르게 만들고 싶다면 컴포넌트들을 lazy하게 로딩하는 방법을 사용할 수도 있습니다. 공식 튜토리얼에 있는 lazy함수(https://legacy.reactjs.org/docs/code-splitting.html#route-based-code-splitting)를 참고하세요.<br/><br/>
+
+✔️ build시 압축 시키지 말고 남기고 싶은 파일은?<br/>
+여러분이 ./부터 시작하는 경로로 첨부한 이미지와 js파일들은 전부 찌부되고 이름이 변합니다. 이름이 변하게 하고 싶지 않으면 public폴더 안에 넣고 build하세요. 그러면 build하고 나서도 그대로 루트경로에 파일이 남아있습니다. (개발시 그런 파일들을 이용하고 싶다면, public폴더에 넣고 ./가 아닌 /경로로 import해오면 됩니다. 왜냐면 /의 기본 설정이 public이기 때문입니다.)<br/><br/>
+
+✔️ 메인 페이지 말고 왜 특정 하위 페이지로 접속하면 404에러가 뜨죠?<br/>
+어쩌구.github.io/detail/1 이런식으로 세부 페이지 URL을 주소창에 입력하면 찾는 페이지가 없어요~ 이렇게 에러가 날 수 있습니다. 이건 서버에서 "누군가 어쩌구.github.io/어쩌구로 접속하면 메인페이지로 안내하세요~"이런식으로 API개발을 해놓아야하는데, github는 우리가 서버를 만지고 어찌할 수 있는게 아니고 그냥 HTML파일 올린것만 사라락 보여주는 곳이기 때문에 사이트 메뉴에다가 페이지 이동버튼을 잘 만들어두면 되겠습니다. 아니면 url에 #기호가 붙는 hashRouter를 리액트라우터 코드짤 때 쓰든가요. 
+</details>
