@@ -259,6 +259,7 @@ Github Pages는 특정한 이름의 리포지토리를 통해 정적 웹사이�
 
 <details>
 <summary>☑️ import, export 문법</summary><br/>
+단순 변수뿐만 아니라 컴포넌트와 함수 등을 다른 파일로 빼서 효율적으로 코드를 작성할 수 있습니다.<br/>
 만약에 App.js에서 data.js파일을 가져다가 쓰고 싶다면...?<br/><br/>
 
 ✔️ data.js에서 한개만 내보내고 싶다면?<br/>
