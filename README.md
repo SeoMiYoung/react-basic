@@ -346,3 +346,20 @@ function App() {
 }
 ```
 </details>
+
+<details>
+<summary>☑️ Nested Routes</summary><br/>
+다음 두 코드는 같은 코드를 의미합니다.<br/>
+
+```
+<Route path="/about" element={<About />} />
+<Route path="/about/member" element={<About />} />
+<Route path="/about/location" element={<About />} />
+```
+```
+<Route path="/about" element={<About />}>
+  <Route path="member" element={<About />} />
+  <Route path="location" element={<About />} />
+</Route>
+```
+</details>
