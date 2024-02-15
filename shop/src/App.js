@@ -10,7 +10,7 @@ function App() {
       {/* 참고로 Bootstrap에서 가져온것도 컴포넌트에 className을 붙혀서 추가로 커스텀할 수 있음 */}
       <Navbar bg="dark" variant="dark">
         <Container>
-        <Navbar.Brand href="#home">Ming Shop</Navbar.Brand>
+        <Navbar.Brand href="#home">Ming's Shoe Shop</Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="#home">Home</Nav.Link>
           <Nav.Link href="#menu">Menu</Nav.Link>
@@ -19,9 +19,30 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="main-bg" style={{ backgroundImage: 'url('+bg+')'}}>
+      {/* 메인 백그라운드 이미지 */}
+      <div className="main-bg" style={{ backgroundImage: 'url('+bg+')'}}></div>
+
+      {/* 상품 레이아웃 3개 만들기(Bootstrap 사용) */}
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4">
+            <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="80%" />
+            <h4>상품명</h4>
+            <p>상품정보</p>
+          </div>
+          <div className="col-md-4">
+            <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%" />
+            <h4>상품명</h4>
+            <p>상품정보</p>
+          </div>
+          <div className="col-md-4">
+            <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%" />
+            <h4>상품명</h4>
+            <p>상품정보</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </div> 
   );
 }
 
