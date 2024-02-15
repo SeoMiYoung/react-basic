@@ -12,12 +12,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* react-router-dom */}
-      <Routes>
-        <Route path="/" element={<div>메인 페이지임</div>} />
-        <Route path="/detail" element={<div>상세 페이지임</div>} />
-      </Routes>
-
       {/* 참고로 Bootstrap에서 가져온것도 컴포넌트에 className을 붙혀서 추가로 커스텀할 수 있음 */}
       <Navbar bg="dark" variant="dark">
         <Container>
@@ -30,22 +24,30 @@ function App() {
         </Container>
       </Navbar>
 
-      {/* 메인 백그라운드 이미지 */}
-      <div className="main-bg" style={{ backgroundImage: 'url('+bg+')'}}></div>
+      {/* react-router-dom */}
+      <Routes>
+        <Route path="/" element={
+          <>
+            {/* 메인 백그라운드 이미지 */}
+            <div className="main-bg" style={{ backgroundImage: 'url('+bg+')'}}></div>
 
-      {/* 상품 레이아웃 3개 만들기(Bootstrap 사용) */}
-      <div className="container">
-        <div className="row">
-          {
-            shoes.map(function(data, index) {
-              return (
-                <Card shoes={shoes[index]} imgSrc={'https://codingapple1.github.io/shop/shoes'+ (index+1) +'.jpg'}/>
-              )
-            })
-          }
-        </div>
-      </div>
-    </div> 
+            {/* 상품 레이아웃 3개 만들기(Bootstrap 사용) */}
+            <div className="container">
+              <div className="row">
+                {
+                  shoes.map(function(data, index) {
+                    return (
+                      <Card shoes={shoes[index]} imgSrc={'https://codingapple1.github.io/shop/shoes'+ (index+1) +'.jpg'}/>
+                    )
+                  })
+                }
+              </div>
+            </div>
+          </> 
+        } />
+        <Route path="/detail" element={<div>상세 페이지임</div>} />
+      </Routes>
+    </div>
   );
 }
 
