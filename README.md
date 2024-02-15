@@ -301,3 +301,8 @@ function App() {
 }
 ```
 </details>
+
+<details>
+<summary>☑️ react-router-dom 라이브러리</summary><br/>
+react-router-dom은 페이지 구분, 일명 라우팅을 매우 쉽게 도와줍니다. 설치방법은 터미널에 'npm install react-router-dom@6'이런식으로 입력해서 설치해주시면 됩니다. 
+</details>
