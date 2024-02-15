@@ -306,3 +306,43 @@ function App() {
 <summary>☑️ react-router-dom 라이브러리</summary><br/>
 react-router-dom은 페이지 구분, 일명 라우팅을 매우 쉽게 도와줍니다. 설치방법은 터미널에 'npm install react-router-dom@6'이런식으로 입력해서 설치해주시면 됩니다. 이제 설명서대로 구글에 react-router-dom 6버전 설치방법해서 그대로 따라하시면 됩니다.
 </details>
+
+<details>
+<summary>☑️ navigate 함수</summary>
+useNavigate()라는 훅을 가져다가 사용할 수 있는데, 이건 페이지 이동을 도와줍니다. 보통 navigate라는 변수에다가 가져다가 사용합니다.<br/><br/>
+
+✔️ Link로 페이지 이동 시<br/>
+근데 Link로 했을때는 텍스트에 밑줄 그어진 형태로 페이지 이동 텍스트를 만들 수 있는데 너무 비기가 싫은거야..<br/>
+
+```
+{/* 페이지 이동 버튼은 Link */}
+<Link to="/">홈</Link>
+<Link to="/detail">상세페이지</Link>
+```
+
+그래서 대신 navigate 함수를 사용합니다.<br/><br/>
+
+✔️ Link로 페이지 이동 시<br/>
+
+```
+import { useNavigate } from 'react-router-dom';
+
+function App() {
+  let navigate = useNavigate();
+
+  return (
+    <div className="App">
+      <Navbar bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand href="#home">Ming's Shoe Shop</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link onClick={()=>{navigate('/')}}>Home</Nav.Link>
+              <Nav.Link onClick={()=>{navigate('/detail')}}>Detail</Nav.Link>
+            </Nav>
+          </Container>
+      </Navbar>
+    </div>
+  )
+}
+```
+</details>
