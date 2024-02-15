@@ -5,6 +5,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import bg from './img/bg.png';
 import data from './data.js';
 import Card from './component/Card/Card.js';
+import Detail from './page/detail/Detail.js';
 import { Routes, Route, Link } from 'react-router-dom';
 
 function App() {
@@ -50,7 +51,7 @@ function App() {
             </div>
           </> 
         } />
-        <Route path="/detail" element={<div>상세 페이지임</div>} />
+        <Route path="/detail" element={<Detail/>} />
       </Routes>
     </div>
   );
