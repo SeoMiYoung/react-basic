@@ -5,10 +5,11 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import data from './data.js';
 import Detail from './page/detail/Detail.js';
 import Home from './page/home/Home.js';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 
 function App() {
   let [shoes] = useState(data);
+  let navigate = useNavigate();
 
   return (
     <div className="App">
@@ -17,17 +18,11 @@ function App() {
         <Container>
         <Navbar.Brand href="#home">Ming's Shoe Shop</Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="#home">Home</Nav.Link>
-          {/* <Nav.Link href="#menu">Menu</Nav.Link> */}
-          <Nav.Link href="#cart">Cart</Nav.Link>
+          <Nav.Link onClick={()=>{ navigate('/') }}>Home</Nav.Link>
+          <Nav.Link onClick={()=>{ navigate('/detail') }}>Detail</Nav.Link>
         </Nav>
         </Container>
       </Navbar>
-
-      {/* 페이지 이동 버튼은 Link */}
-      <Link to="/">홈</Link>
-      <br/>
-      <Link to="/detail">상세페이지</Link>
 
       {/* react-router-dom */}
       <Routes>
