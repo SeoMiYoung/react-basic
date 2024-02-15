@@ -348,7 +348,7 @@ function App() {
 </details>
 
 <details>
-<summary>☑️ Nested Routes</summary><br/>
+<summary>☑️ 여러 유사한 페이지가 필요할때 사용하면 좋은, Nested Routes</summary><br/>
 다음 두 코드는 같은 코드를 의미합니다.<br/>
 
 ```
