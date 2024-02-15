@@ -127,26 +127,4 @@ function MakeModal(props) { // props는 작명임(자유)
   );
 }
 
-// class형식으로 컴포넌트 만들기(옛방식)
-// 그러나, React에서는 함수형 컴포넌트와 클래스 컴포넌트를 함께 사용하는 것을 지양하는게 좋습니다.
-// 그래서 그런지...이 코드만 추가하면 잘 안돌아감;;..
-class MakeModal2 extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name : 'Seo Mi Young',
-      age : 25
-    }
-  }
-  render() {
-    return (
-      <div>
-        안녕 난 {this.props.name}
-        <button onClick={()=>{ // 버튼을 누르면 바꿔줌
-          this.setState({name : 'Ming'})
-        }}>버튼</button>
-      </div>
-    )
-  }
-}
 export default App;
