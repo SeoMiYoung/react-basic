@@ -214,5 +214,20 @@ Github Pages는 특정한 이름의 리포지토리를 통해 정적 웹사이�
 (3) build 폴더 내의 파일을 전부 드래그 앤 드롭하기<br/>
 🔊 주의: build 폴더 자체를 드래그 앤 드롭(x) build 폴더 안의 내용물을 드래그 앤 드롭(o)<br/>
 <img width="550px" src="https://github.com/SeoMiYoung/react-basic/assets/112063987/ce06f55e-d378-4e8f-b475-810974fb678e"/>
+<br/><br/>
+(4) 끝<br/>
+이제 10분정도 후에 https://여러분아이디.github.io라고 주소창에 입력하면 여러분의 사이트가 보입니다.
+<br/><br/>
+
+✔️ 이제 여러 repository를 동시에 호스팅해준다고 합니다.<br/>
+일단, 기본적으로 예전에 만들었던 username.github.io라는 레포지토리를 지우면 안됩니다.<br/>
+<br/>
+(1) 아무 레포지토리나 만드세요. 이름은 자유입니다.<br/>
+(2) 아까처럼 build내용을 드래그 앤 드롭하세요.<br/>
+(3) repository setting 메뉴에 들어가서 Github pages부분에 들어갑니다.<br/>
+<img width="550px" src="https://github.com/SeoMiYoung/react-basic/assets/112063987/0a6c17af-e8a0-4f28-a695-d75c2e526edf"/><br/>
+형광펜 부분을 None이 아니라 main이런걸로 바꿔주세요.<br/>
+(4) 끝<br/>
+"username.github.io/repository이름/"으로 들어가시면 확인 가능합니다.<br/>
 
 </details>
