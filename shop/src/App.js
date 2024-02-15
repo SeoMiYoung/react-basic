@@ -1,7 +1,8 @@
-import logo from './logo.svg';
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap'
+import bg from './img/bg.png'
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="main-bg">
+      <div className="main-bg" style={{ backgroundImage: 'url('+bg+')'}}>
       </div>
     </div>
   );
