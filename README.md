@@ -240,3 +240,64 @@ Github Pages는 특정한 이름의 리포지토리를 통해 정적 웹사이�
 ✔️ 메인 페이지 말고 왜 특정 하위 페이지로 접속하면 404에러가 뜨죠?<br/>
 어쩌구.github.io/detail/1 이런식으로 세부 페이지 URL을 주소창에 입력하면 찾는 페이지가 없어요~ 이렇게 에러가 날 수 있습니다. 이건 서버에서 "누군가 어쩌구.github.io/어쩌구로 접속하면 메인페이지로 안내하세요~"이런식으로 API개발을 해놓아야하는데, github는 우리가 서버를 만지고 어찌할 수 있는게 아니고 그냥 HTML파일 올린것만 사라락 보여주는 곳이기 때문에 사이트 메뉴에다가 페이지 이동버튼을 잘 만들어두면 되겠습니다. 아니면 url에 #기호가 붙는 hashRouter를 리액트라우터 코드짤 때 쓰든가요. 
 </details>
+
+<details>
+  
+<summary>☑️ public폴더에도 이미지를 보관 가능합니다.</summary><br/>
+물론 src폴더에서 보통 가져다가 쓰는데, src에서 가져다가 쓰려면 항상 import를 해서 사용해야합니다. 근데 이미지가 만약에 100개가 준비되어있으면 100개를 다 import해와야하잖아요? 오바잖아요...? <br/>
+그래서 public폴더에 이미지를 보관하면 바로 가져다가 쓸 수 있습니다. 여러분들이 리액트 코드를 다 짜면 사이트를 발행할거잖아요? 그러면 bundling을 통해서 여러분의 소스코드를 사이트 발행전에 한 코드로 압축합니다. 그래서 그 파일들을 서버에 올리거나 하시면 되는데, 그럴때 src내의 것들은 모두 압축이 되거나 파일명이 변합니다. 그런데 public폴더 안에있는건 압축이 되지 않습니다. <br/><br/>
+
+✔️ public의 주의점<br/>
+나중에 서브 경로에 발행하고 싶다면, (예를 들면 ming.com/어쩌구/) 그러면 경로에 문제가 생길 수 있습니다. 그때는 경로를 src="/어쩌구/logo.png"이렇게 설정해야될수도 있습니다. 이걸 맨날맨날 하기 귀찮으면 CRA 라이브러리 공식사이트에 들어가면 다음과 같이 코드를 짜면 된다고 알려줍니다.<br/>
+
+```
+<img src={process.env.PUBLIC_URL + '/logo.png'} /> 
+```
+
+이렇게 /어쩌구/를 뜻하는 process.env.PUBLIC_URL을 더해주면 된다고 합니다. ming.com/어쩌구/ 경로에 리액트로 만든 페이지를 배포할 일이 없다면 굳이 안해도 됩니다.
+</details>
+
+<details>
+<summary>☑️ import, export 문법</summary><br/>
+단순 변수뿐만 아니라 컴포넌트와 함수 등을 다른 파일로 빼서 효율적으로 코드를 작성할 수 있습니다.<br/>
+만약에 App.js에서 data.js파일을 가져다가 쓰고 싶다면...?<br/><br/>
+
+✔️ data.js에서 한개만 내보내고 싶다면?<br/>
+
+```
+// data.js
+let a = 10;
+
+export default a; // export default 변수명;
+```
+```
+// App.js
+import 작명 from './data.js'; // 작명은 자유롭게 하삼
+
+function App() {
+  return (
+    <div>{작명}</div> 
+  )
+}
+```
+<br/>
+✔️ data.js에서 여러개를 내보내고 싶다면?<br/>
+
+```
+// data.js
+let a = 10;
+let b = 20;
+
+export default {a, b}; // export 여러개 하려면 export {변수1, 변수2}
+```
+```
+// App.js
+import {a, b} from './data.js'; // 단, 이 경우 작명 불가 (export했던 변수명 그대로 가져와야함)
+
+function App() {
+  return (
+    <div>{a}</div>
+  )
+}
+```
+</details>
