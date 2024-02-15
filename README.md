@@ -362,4 +362,27 @@ function App() {
   <Route path="location" element={<About />} />
 </Route>
 ```
+
+✔️ Outlet 사용: nested routes를 보여줄 자리를 선정<br/>
+nested routes를 사용하면 장점이 있는데요, 바로 nested route접속시엔 element가 2개나 보인다는 점입니다.<br/>
+위의 코드에서 nested routes를 사용하지 않은 첫번째 코드에서는 './about/member'로 접속하면 './about'의 내용이 보이지 않습니다. 그러나 nested router를 사용하면 './about/member'를 접속하면 './about'와 './about/member'모두 보입니다.<br/>
+
+```
+function About() {
+  return (
+    <div>
+      <h4>회사 정보임</h4>
+      <Outlet></Outlet> {/* nested routes의 element를 보여주는 곳은 Outlet */}
+    </div>
+  )
+}
+```
+
+```
+<Route path="/about" element={<About />}>
+  <Route path="member" element={<div>멤버임</div>} />
+  <Route path="location" element={<div>로케이션임</div>} />
+</Route>
+```
 </details>
+
