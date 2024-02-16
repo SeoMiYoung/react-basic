@@ -386,3 +386,7 @@ function About() {
 ```
 </details>
 
+<details>
+<summary>☑️ styled-components</summary><br/>
+원래는 이쁜 버튼 하나 만들고 싶으면 className 넣고, css파일도 가야하는데...어우..이게 너무 귀찮다 말이죠? 나는 css파일까지 가기 싫고, js안에서 모두 끝내고 싶다면, styled-component라이브러리를 사용하시면 됩니다. 
+</details>
