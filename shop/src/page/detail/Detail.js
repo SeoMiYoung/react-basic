@@ -1,33 +1,30 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React from 'react';
+import { React, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 
-let YellowBtn = styled.button`
-    background : ${ props => props.bg };
-    color : ${ props => props.bg == 'blue' ? 'white' : 'black' };
-    padding : 10px;
-`
-let NewBtn = styled.button(YellowBtn)`
-    // YellowBtn 디자인 가져와서 커스텀 가능
-`
-
-let Box = styled.div`
-    background: grey;
-    padding: 20px;
-`
 
 function Detail(props) {
+    let [visible, setVisible] = useState(true);
+
+    useEffect(()=>{ // mount, update시 코드 실행해주는 useEffect
+        // Detail 페이지 방문 후 2초 지나면 <div> 숨기기
+        const timer = setTimeout(() => {
+            setVisible(false); // 2초 후에 상태를 false로 변경
+        }, 2000);
+    }, []); // 빈 배열을 전달하여 마운트 시에만 실행되도록 합니다
+
     let { id } = useParams(); // 현재 url의 파라미터 정보들이 남음(모르겠으면 구글링 ㄱㄱ)
     let imgNum = parseInt(id)+1;
     let product = props.shoes.find(item => item.id == id);
-
+    
     return (
         <div className="container">
-            <Box>
-                <YellowBtn bg="blue">버튼</YellowBtn>
-                <YellowBtn bg="orange">버튼</YellowBtn>
-            </Box>
+            {visible ? 
+                <div className="alert alert-warning">
+                    2초 이내 구매 시 할인
+                </div> 
+            : null}
             <div className="row">
                 <div className="col-md-6">
                     <img src={"https://codingapple1.github.io/shop/shoes" + imgNum + ".jpg"} width="100%" />
