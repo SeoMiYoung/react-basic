@@ -398,3 +398,40 @@ function About() {
 3. 로딩 시간이 단축됩니다. <br/>
 왜냐하면 styled-components방식으로 적은 스타일들은 css파일들을 별도로 만들지 않고, html파일에서 style태그에 주입을 바로 해줄거에요. 그리고, 특정 페이지에 필요한 css만 로드를 할 수 있어서 로딩 시간 단축이 가능합니다.
 </details>
+
+<details>
+<summary>☑️ 컴포넌트의 Lifecycle</summary><br/>
+컴포넌트도 사람처럼 태어나고 죽는 과정이 있습니다...<br/>
+
+<table>
+  <tr>
+    <th>mount</th>
+    <td>페이지에 장착되기도 하고(컴포넌트가 보이는 순간)</td>
+  </tr>
+  <tr>
+    <th>update</th>
+    <td>가끔 업데이트도 되고(업데이트 == 재렌더링)</td>
+  </tr>
+  <tr>
+    <th>unmount</th>
+    <td>필요없으면 제거되고(다른 페이지로 돌려서 필요 없어지면?)</td>
+  </tr>
+</table>
+이걸 왜 배우냐면요, 컴포넌트의 인생 주기 중간중간 간섭을 할 수 있습니다. <br/><br/>
+
+✔️ Lifecycle hook 다는 법 (함수형 컴포넌트에서, 클래스형 방식은 따로 찾아보셈)<br/>
+useEffect: mount/update시 여기 코드 실행됨
+
+```
+function Detail(props) {
+  useEffect(()=>{
+    console.log("안녕");
+  })
+}
+```
+그런데 위의 코드 실행시키면 안녕이 두 번 찍히는데 리액트상에서는 개발을 할 때, 원래 그렇습니다.. 디버깅을 위해서 useEffect는 그렇게 동작합니다. 실제 사이트를 발행하고 나서는 한번 동작하니깐 걱정마세요. 그게 싫으면 React.StrictMode 없애거나 하면 됩니다. 
+<br/><br/>
+✔️ useEffect의 간단한 동작 원리 - 왜 useEffect를 써야하는지 알 수 있음<br/>
+useEffect는 실행 시점이 언제냐면, 랜더링이 다 되고 나서 실행이 됩니다. <br/>
+그래서 10000번 도는 for문 이런건...너무 성능상 느릴 수 있으니깐 그런건 이미 다 랜더링 되고 나서 실행되게 useEffect안에 넣어주면 음...좋겠져? useEffect는 어려운 연산할때, 서버에서 데이터를 가져오는 작업할때, 타이머 장착할 때 사용하면 조~~~~~~~씁니다~
+</details>
