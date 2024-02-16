@@ -398,3 +398,33 @@ function About() {
 3. 로딩 시간이 단축됩니다. <br/>
 왜냐하면 styled-components방식으로 적은 스타일들은 css파일들을 별도로 만들지 않고, html파일에서 style태그에 주입을 바로 해줄거에요. 그리고, 특정 페이지에 필요한 css만 로드를 할 수 있어서 로딩 시간 단축이 가능합니다.
 </details>
+
+<details>
+<summary>☑️ 컴포넌트의 Lifecycle</summary><br/>
+<table>
+  <tr>
+    <th>mount</th>
+    <td>페이지에 장착되기도 하고</td>
+  </tr>
+  <tr>
+    <th>update</th>
+    <td>가끔 업데이트도 되고(업데이트 == 재렌더링)</td>
+  </tr>
+  <tr>
+    <th>unmount</th>
+    <td>필요없으면 제거되고</td>
+  </tr>
+</table>
+
+✔️ Lifecycle hook 다는 법 (함수형 컴포넌트에서, 클래스형 방식은 따로 찾아보셈)<br/>
+(1) useEffect: mount/update시 여기 코드 실행됨
+
+```
+function Detail(props) {
+  useEffect(()=>{
+    console.log("안녕");
+  })
+}
+```
+그런데 위의 코드 실행시키면 안녕이 두 번 찍히는데 리액트상에서는 개발을 할 때, 원래 그렇습니다.. 디버깅을 위해서 useEffect는 그렇게 동작합니다. 실제 사이트를 발행하고 나서는 한번 동작하니깐 걱정마세요. 그게 싫으면 React.StrictMode 없애거나 하면 됩니다. 
+</details>
