@@ -8,6 +8,9 @@ let YellowBtn = styled.button`
     color : ${ props => props.bg == 'blue' ? 'white' : 'black' };
     padding : 10px;
 `
+let NewBtn = styled.button(YellowBtn)`
+    // YellowBtn 디자인 가져와서 커스텀 가능
+`
 
 let Box = styled.div`
     background: grey;
