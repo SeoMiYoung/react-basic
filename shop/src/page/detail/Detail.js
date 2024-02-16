@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 let YellowBtn = styled.button`
     background : ${ props => props.bg };
-    color : black;
+    color : ${ props => props.bg == 'blue' ? 'white' : 'black' };
     padding : 10px;
 `
 
