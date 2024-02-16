@@ -388,5 +388,13 @@ function About() {
 
 <details>
 <summary>☑️ styled-components</summary><br/>
-원래는 이쁜 버튼 하나 만들고 싶으면 className 넣고, css파일도 가야하는데...어우..이게 너무 귀찮다 말이죠? 나는 css파일까지 가기 싫고, js안에서 모두 끝내고 싶다면, styled-component라이브러리를 사용하시면 됩니다. 
+원래는 이쁜 버튼 하나 만들고 싶으면 className 넣고, css파일도 가야하는데...어우..이게 너무 귀찮다 말이죠? 나는 css파일까지 가기 싫고, js안에서 모두 끝내고 싶다면, styled-component라이브러리를 사용하시면 됩니다.<br/><br/>
+
+✔️ 장점<br/>
+1. CSS파일을 굳이 안열어도 스타일링을 자바스크립트 안에서 해결 가능합니다.<br/>
+2. 스타일이 다른 js파일로 오염되지 않습니다.<br/>
+원래는 App.css에 적힌 스타일이 App.js뿐만 아니라 Detail.js등등에 반영이 됩니다. 왜냐면 리액트는 코드를 다 짜면 코드를 html끼리, css끼리, js끼리 합칩니다. 그래서 스타일을 모든 곳에서 다 가져다가 쓸 수 있는데요, 페이지의 사이즈가 커지면 단점이 될 수 있어서 styled components를 씁니다. <br/>
+- 참고로, css파일을 만들때 여러분이 작명을 잘하면 이런 문제를 해결할 수 있는데요, '컴포넌트.module.css'이렇게 작명을 하면 굳이 styled components를 안써도 오염을 방지 가능합니다. <br/>
+3. 로딩 시간이 단축됩니다. <br/>
+왜냐하면 styled-components방식으로 적은 스타일들은 css파일들을 별도로 만들지 않고, html파일에서 style태그에 주입을 바로 해줄거에요. 그리고, 특정 페이지에 필요한 css만 로드를 할 수 있어서 로딩 시간 단축이 가능합니다.
 </details>
