@@ -401,10 +401,12 @@ function About() {
 
 <details>
 <summary>☑️ 컴포넌트의 Lifecycle</summary><br/>
+컴포넌트도 사람처럼 태어나고 죽는 과정이 있습니다...<br/>
+
 <table>
   <tr>
     <th>mount</th>
-    <td>페이지에 장착되기도 하고</td>
+    <td>페이지에 장착되기도 하고(컴포넌트가 보이는 순간)</td>
   </tr>
   <tr>
     <th>update</th>
@@ -412,12 +414,13 @@ function About() {
   </tr>
   <tr>
     <th>unmount</th>
-    <td>필요없으면 제거되고</td>
+    <td>필요없으면 제거되고(다른 페이지로 돌려서 필요 없어지면?)</td>
   </tr>
 </table>
+이걸 왜 배우냐면요, 컴포넌트의 인생 주기 중간중간 간섭을 할 수 있습니다. <br/><br/>
 
 ✔️ Lifecycle hook 다는 법 (함수형 컴포넌트에서, 클래스형 방식은 따로 찾아보셈)<br/>
-(1) useEffect: mount/update시 여기 코드 실행됨
+useEffect: mount/update시 여기 코드 실행됨
 
 ```
 function Detail(props) {
