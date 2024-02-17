@@ -81,6 +81,8 @@ function Detail(props) {
 }
 
 function TabContent(props) {
+    let { storage, shoes } = useContext(Context1); // 보관함을 해체해주는 함수, object형식으로 남음
+
     let { tab } = props;
     let [fade, setFade] = useState('');
 
@@ -99,7 +101,7 @@ function TabContent(props) {
     return (
         <div className={'tabStart '+fade}>
             {
-                [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
+                [<div>{storage}</div>, <div>내용1</div>, <div>내용2</div>][tab]
             }
         </div>
     )
