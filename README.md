@@ -555,5 +555,7 @@ function TabContent({tab}) {
 step1) state 변경해주는 함수를 store.js에 만들기 & export 하기<br/>
 step2) export let { 함수명 } = 슬라이스명.actions<br/>
 step3) 사용하는 곳에 dispatch(state변경함수())<br/>
-- dispatch가 state변경함수 실행해달라고 store.js에게 부탁하는거임
+- dispatch가 state변경함수 실행해달라고 store.js에게 부탁하는거임<br/><br/>
+✔️ 왜이렇게 복잡할까?<br/>
+만약에 컴포넌트 100개에서 직접 'kim'이라는 state를 변경하다가 갑자기 'kim'이 123이 되어버리는 버그가 발생하면 범인을 찾으려고 컴포넌트 100개를 다 뒤져야합니다. 근데 state 수정함수들을 store.js에 미리 만들어두고 컴포넌트는 그거 실행해달라고 부탁만 하는 식으로 코드를 짜놓으면 'kim'이 123이 되어버리는 버그가 발생했을 때, 범인 찾기가 수월합니다. 범인은 무조건 store.js에 있으니깐요. 
 </details>
