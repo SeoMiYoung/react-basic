@@ -14,8 +14,10 @@ let user = createSlice({ // useState랑 비슷한 용도
             // 왜냐면 Immer.js의 도움을 받아서(자동으로 설치되는 라이브러리)
             state.name = 'seo'
         },
-        plusAge(state, num) {
-            state.age = state.age + num.payload;
+        plusAge(state, action) {
+            // action에는 여러가지 정보들이 있음
+            // state 변경함수들을 action이라고 함
+            state.age = state.age + action.payload;
         }
     }
 })
