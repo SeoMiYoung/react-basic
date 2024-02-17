@@ -7,7 +7,7 @@
 .tabEnd {
   opacity: 1;
   /* opacity가 변경될 때, 0.5초에 걸쳐서 변경해주세요. */
-  transition: opacity 1s;
+  transition: opacity 0.5s;
 }
 
 .App {

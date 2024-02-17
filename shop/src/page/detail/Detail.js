@@ -81,7 +81,10 @@ function TabContent(props) {
     let [fade, setFade] = useState('');
 
     useEffect(()=>{
-        setFade('tabEnd');
+        // 0.1초후에 코드 실행
+        setTimeout(()=>{
+            setFade('tabEnd');
+        }, 100);
 
         // clean up function
         return ()=>{
