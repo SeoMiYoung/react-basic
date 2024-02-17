@@ -12,7 +12,9 @@ function Cart() {
 
     return (
         <div>
-            {getState.user}의 장바구니
+            <h6>
+                {getState.user.name}의 장바구니
+            </h6>
             <Table>
                 <thead>
                     <tr>
