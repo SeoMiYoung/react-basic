@@ -51,13 +51,22 @@ function Detail(props) {
 
             <Nav variant="tabs"  defaultActiveKey="link0">
                 <Nav.Item>
-                    <Nav.Link eventKey="link0">버튼0</Nav.Link>
+                    <Nav.Link onClick={()=>{
+                        setTab(0);
+                    }}
+                    eventKey="link0">버튼0</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="link1">버튼1</Nav.Link>
+                    <Nav.Link onClick={()=>{
+                        setTab(1);
+                    }}
+                    eventKey="link1">버튼1</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link eventKey="link2">버튼2</Nav.Link>
+                    <Nav.Link onClick={()=>{
+                        setTab(2);
+                    }}
+                    eventKey="link2">버튼2</Nav.Link>
                 </Nav.Item>
             </Nav>
             {/* if문은 jsx안에서 못쓰기 때문에 컴포넌트로 가져와 */}
@@ -68,7 +77,7 @@ function Detail(props) {
 
 function TabContent(props) {
     let { tab } = props;
-    
+
     if (tab==0) {
         return <div>내용0</div>
     }
