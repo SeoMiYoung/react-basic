@@ -18,7 +18,7 @@ function Cart() {
                 의 장바구니
             </h6>
             <button onClick={(()=>{
-                dispatch(plusAge())
+                dispatch(plusAge(3))
             })}>
                 버튼
             </button>
