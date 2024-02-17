@@ -433,5 +433,28 @@ function Detail(props) {
 <br/><br/>
 ✔️ useEffect의 간단한 동작 원리 - 왜 useEffect를 써야하는지 알 수 있음<br/>
 useEffect는 실행 시점이 언제냐면, 랜더링이 다 되고 나서 실행이 됩니다. <br/>
-그래서 10000번 도는 for문 이런건...너무 성능상 느릴 수 있으니깐 그런건 이미 다 랜더링 되고 나서 실행되게 useEffect안에 넣어주면 음...좋겠져? useEffect는 어려운 연산할때, 서버에서 데이터를 가져오는 작업할때, 타이머 장착할 때 사용하면 조~~~~~~~씁니다~
+그래서 10000번 도는 for문 이런건...너무 성능상 느릴 수 있으니깐 그런건 이미 다 랜더링 되고 나서 실행되게 useEffect안에 넣어주면 음...좋겠져? useEffect는 어려운 연산할때, 서버에서 데이터를 가져오는 작업할때, 타이머 장착할 때 사용하면 조~~~~~~~씁니다~<br/>
+<br/>
+✔️ useEffect의 간단 정리<br/>
+```
+useEffect(()=>{ ... })  // 1.재렌더링마다 코드 실행하고 싶으면
+useEffect(()=>{ ... }, [])  // 2.mount시 1회 코드 실행하고 싶으면
+useEffect(()=>{
+  return ()=>{
+    // 3. unmount시 1회 코드 실행하고 싶으면
+    // 4. useEffect 실행 전에 뭔가 실행하려면 
+  }
+}, [])
+```
+</details>
+
+<details>
+<summary>☑️ Ajax</summary><br/>
+✔️ Ajax쓰려면 옵션 3개 중 택1<br/>
+1. XMLHttpRequest(옛날 자바스크립트 문법)<br/>
+2. fetch(요즘 자바스크립트 문법)<br/>
+3. Axios같은 외부 라이브러리 쓰거나..<br/>
+<br/>
+✔️ Axios<br/>
+코드 작성을 쫌 더 짧게 할 수 있습니다. 
 </details>
