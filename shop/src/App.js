@@ -5,6 +5,7 @@ import { Navbar, Container, Nav } from 'react-bootstrap';
 import data from './data.js';
 import Detail from './page/detail/Detail.js';
 import Home from './page/home/Home.js';
+import Cart from './page/cart/Cart.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
@@ -38,6 +39,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home shoes={shoes} setShoes={setShoes}/>} />
         <Route path="/detail/:id" element={<Context1.Provider value={{storage, shoes}}><Detail shoes={shoes}/></Context1.Provider>} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<div>없는 페이지 입니다.</div>} /> 
       </Routes>
     </div>
