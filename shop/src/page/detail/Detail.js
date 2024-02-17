@@ -13,6 +13,8 @@ function Detail(props) {
             setVisible(false); // 2초 후에 상태를 false로 변경
         }, 2000);
     }, []); // 빈 배열을 전달하여 마운트 시에만 실행되도록 합니다
+    // []는 dependency로, useEffect의 실행 조건을 넣을 수 있습니다.
+
 
     let { id } = useParams(); // 현재 url의 파라미터 정보들이 남음(모르겠으면 구글링 ㄱㄱ)
     let imgNum = parseInt(id)+1;
@@ -20,10 +22,10 @@ function Detail(props) {
     
     return (
         <div className="container">
-            {visible ? 
-                <div className="alert alert-warning">
-                    2초 이내 구매 시 할인
-                </div> 
+            {visible 
+            ? <div className="alert alert-warning">
+                2초 이내 구매 시 할인
+            </div> 
             : null}
             <div className="row">
                 <div className="col-md-6">
