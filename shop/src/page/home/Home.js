@@ -25,6 +25,7 @@ function Home(props) {
 
             {/* 버튼 만들기 Ajax 요청 */}
             <button onClick={()=>{
+              // [로딩] 로딩 중 UI 띄우기
               // ajax 이용한 GET요청은 axios.get('url')
               // ajax 요청에는 부가 정보들도 따라옴 (성공여부, 어디서 어떻게 왔는지..)
               // 새로고침 없이 데이터를 가져옴
@@ -36,6 +37,8 @@ function Home(props) {
                   // 기존 shoes에 없는 상품들만(id로 구별) 합치기
                   let copy = [...props.shoes, ...result.data.filter(item => !props.shoes.some(shoe => shoe.id === item.id))];
                   props.setShoes(copy);
+
+                  // [로딩] 로딩 중 UI 없애기
                 })
                 .catch(()=>{
                   // ajax 요청이 실패했을 경우의 코드
