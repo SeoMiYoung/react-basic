@@ -6,6 +6,7 @@ import data from './data.js';
 import Detail from './page/detail/Detail.js';
 import Home from './page/home/Home.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import axios from 'axios'
 
 function App() {
   let [shoes] = useState(data);

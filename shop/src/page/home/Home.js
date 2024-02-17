@@ -21,6 +21,9 @@ function Home(props) {
                 }
               </div>
             </div>
+
+            {/* 버튼 만들기 Ajax 요청 */}
+            <button>버튼</button>
         </>
     )
 }
