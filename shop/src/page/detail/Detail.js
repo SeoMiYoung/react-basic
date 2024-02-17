@@ -2,11 +2,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { React, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
-
+import { Nav } from 'react-bootstrap';
 
 function Detail(props) {
     let [visible, setVisible] = useState(true);
-
+    let [tab, setTab] = useState(0);
+    
     useEffect(()=>{ // mount, update시 코드 실행해주는 useEffect
         // Detail 페이지 방문 후 2초 지나면 <div> 숨기기
         let timer = setTimeout(() => {
@@ -47,8 +48,37 @@ function Detail(props) {
                     <button className="btn btn-danger">주문하기</button> 
                 </div>
             </div>
+
+            <Nav variant="tabs"  defaultActiveKey="link0">
+                <Nav.Item>
+                    <Nav.Link eventKey="link0">버튼0</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link1">버튼1</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link2">버튼2</Nav.Link>
+                </Nav.Item>
+            </Nav>
+            {/* if문은 jsx안에서 못쓰기 때문에 컴포넌트로 가져와 */}
+            <TabContent tab={tab} setTab={setTab}/>
         </div> 
     )
 }
+
+function TabContent(props) {
+    let { tab } = props;
+    
+    if (tab==0) {
+        return <div>내용0</div>
+    }
+    else if (tab==1) {
+        return <div>내용1</div>
+    }
+    else {
+        return <div>내용2</div>
+    }
+}
+
 
 export default Detail;
