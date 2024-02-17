@@ -10,6 +10,7 @@ let user = createSlice({ // useState랑 비슷한 용도
     reducers : {
         setName(state) { // state는 기존 state
             // array나 object의 경우 직접 수정해도 state가 변경됩니다.
+            // 결론: state가 array나 object면 return없이 직접 수정해도 됩니다.
             // 왜냐면 Immer.js의 도움을 받아서(자동으로 설치되는 라이브러리)
             state.name = 'seo'
         },
