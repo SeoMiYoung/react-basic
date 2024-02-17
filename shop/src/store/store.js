@@ -10,15 +10,13 @@ let user = createSlice({ // useState랑 비슷한 용도
     reducers : {
         setName(state) { // state는 기존 state
             return 'seo mi young'
-        },
-        함수1() {
-
-        },
-        함수2() {
-            
         }
     }
 })
+
+// user.actions하면 state 변경 함수들 남음
+// export 하고 싶은 함수명들을 넣어주면 됨
+export let { setName } = user.actions
 
 let userCart = createSlice({ // user가 장바구니에 추가한 상품들
     name : 'userCart',
