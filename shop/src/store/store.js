@@ -6,14 +6,17 @@ let user = createSlice({ // useState랑 비슷한 용도
     initialState : 'ming'
 })
 
-let stock = createSlice({ // useState랑 비슷한 용도
-    name : 'stock',
-    initialState : [10, 11, 12]
+let userCart = createSlice({ // user가 장바구니에 추가한 상품들
+    name : 'userCart',
+    initialState : [
+        {id : 0, name : 'White and Black', count : 2},
+        {id : 2, name : 'Grey Yordan', count : 1}
+    ] 
 })
 
 export default configureStore({
   reducer: { // 등록하기
     user : user.reducer, // 작명 : state명.reducer
-    stock : stock.reducer
+    userCart : userCart.reducer
   }
 }) 
