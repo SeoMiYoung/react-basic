@@ -492,3 +492,48 @@ fetch('https://~~~.json')
   .then(data => {})
 ```
 </details>
+
+<details>
+<summary>☑️ 리액트의 automatic batching 기능</summary><br/>
+  
+```
+function TabContent({tab}) {
+  let [fade, setFade] = useState('');
+
+  useEffect(()=>{
+    setFade('end')}, 100);  // [2빠] state 변경 함수
+
+    return ()=>{
+      setFade('');  // [(순서상)1빠] state 변경 함수 
+    }
+  }, [tab])
+
+  return (
+    어쩌구
+  )
+}
+```
+
+위의 코드가 제대로 실행되지 않는 이유가 뭘까요? 리액트의 18버전 이상에서는 새로운 기능이 있습니다. 바로 리액트의 automatic batching 기능입니다. state를 변경하는 함수들이 근처에 있다면, 그것들을 다 합쳐서 최종적으로 state를 딱 한번만 변경해줍니다. 마지막에만 딱 한번 재랜더링을 시켜줍니다. 그러면 위의 예시에서는 [1빠]는 무시되고 [2빠]만 진행됩니다. 그래서 해결방법은 setTimeout으로 미세한 시간차를 두는 것 입니다. <br/>
+
+```
+function TabContent({tab}) {
+  let [fade, setFade] = useState('');
+
+  useEffect(()=>{
+    let timer = setTimeout(()=>{
+      setFade('end'); // [2빠] state 변경 함수
+    }, 10); 
+
+    return ()=>{
+      clearTimeout(timer);
+      setFade('');  // [(순서상)1빠] state 변경 함수 
+    }
+  }, [tab])
+
+  return (
+    어쩌구
+  )
+}
+```
+</details>
