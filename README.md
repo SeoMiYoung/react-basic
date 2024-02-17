@@ -554,5 +554,5 @@ function TabContent({tab}) {
 ✔️ Redux의 state 변경하기<br/>
 step1) state 변경해주는 함수를 store.js에 만들기 & export 하기<br/>
 step2) export let { 함수명 } = 슬라이스명.actions<br/>
-step3) 사용하는 곳에 dispath(state변경함수())<br/>
+step3) 사용하는 곳에 dispatch(state변경함수())<br/>
 </details>
