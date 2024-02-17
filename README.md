@@ -548,3 +548,11 @@ function TabContent({tab}) {
 그러나 실제에서는 성능 이슈(쓸데없는 재렌더링) 및 컴포넌트 재활용이 어렵다는 이슈로 잘 사용하지는 않습니다. 
 
 </details>
+
+<details>
+<summary>☑️ Redux</summary><br/>
+✔️ Redux의 state 변경하기<br/>
+step1) state 변경해주는 함수를 store.js에 만들기 & export 하기<br/>
+step2) export let { 함수명 } = 슬라이스명.actions<br/>
+step3) 사용하는 곳에 dispath(state변경함수())<br/>
+</details>
