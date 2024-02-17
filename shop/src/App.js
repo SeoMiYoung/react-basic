@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, createContext } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap';
@@ -8,7 +8,11 @@ import Home from './page/home/Home.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
+export let Context1 = createContext(); // context를 하나 만들어줌(state 보관함)
+
 function App() {
+  let [storage] = useState([10, 11, 12]);
+
   useEffect(()=>{
     console.log("App이 랜더링 됩니다.");
   });
@@ -33,7 +37,7 @@ function App() {
       {/* react-router-dom */}
       <Routes>
         <Route path="/" element={<Home shoes={shoes} setShoes={setShoes}/>} />
-        <Route path="/detail/:id" element={<Detail shoes={shoes}/>} />
+        <Route path="/detail/:id" element={<Context1.Provider value={{storage, shoes}}><Detail shoes={shoes}/></Context1.Provider>} />
         <Route path="*" element={<div>없는 페이지 입니다.</div>} /> 
       </Routes>
     </div>

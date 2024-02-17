@@ -1,11 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { React, useEffect, useState } from 'react';
+import { React, useEffect, useState, useContext } from 'react';
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
 // import '../../App.css';
+import { Context1 } from '../../App.js';
 
 function Detail(props) {
+    let { storage, shoes } = useContext(Context1); // 보관함을 해체해주는 함수, object형식으로 남음
+
     let [visible, setVisible] = useState(true);
     let [tab, setTab] = useState(0);
     
@@ -72,6 +75,7 @@ function Detail(props) {
             </Nav>
             {/* if문은 jsx안에서 못쓰기 때문에 컴포넌트로 가져와 */}
             <TabContent tab={tab} setTab={setTab}/>
+            {storage}
         </div> 
     )
 }
@@ -81,7 +85,7 @@ function TabContent(props) {
     let [fade, setFade] = useState('');
 
     useEffect(()=>{
-        // 0.1초후에 코드 실행
+        // 0.1초후에 코드
         setTimeout(()=>{
             setFade('tabEnd');
         }, 100);
