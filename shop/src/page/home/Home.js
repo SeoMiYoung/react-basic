@@ -44,6 +44,9 @@ function Home(props) {
                   // ajax 요청이 실패했을 경우의 코드
                   // [로딩] 로딩 중 UI 없애기
                 })
+              
+              // POST 요청(서버로 데이터 전송)
+              axios.post('/sss', { name: 'seo'})
             }}>버튼</button>
         </>
     )

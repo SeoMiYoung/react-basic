@@ -1,3 +1,15 @@
+/* [tab] 애니메이션 동작 전 className 만들기 */
+.tabStart {
+  opacity: 0;
+}
+
+/* [tab] 애니메이션 동작 후 className 만들기 */
+.tabEnd {
+  opacity: 1;
+  /* opacity가 변경될 때, 0.5초에 걸쳐서 변경해주세요. */
+  transition: opacity 1s;
+}
+
 .App {
   text-align: center;
 }
@@ -37,9 +49,11 @@
   }
 }
 
+
 .main-bg {
   height: 300px;
   /* background-image: url('./src/bg.png'); */
   background-size: cover;
   background-position: center;
 }
+

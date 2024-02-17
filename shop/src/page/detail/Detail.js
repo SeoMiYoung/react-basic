@@ -3,6 +3,7 @@ import { React, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
+// import '../../App.css';
 
 function Detail(props) {
     let [visible, setVisible] = useState(true);
@@ -77,16 +78,24 @@ function Detail(props) {
 
 function TabContent(props) {
     let { tab } = props;
+    let [fade, setFade] = useState('');
 
-    if (tab==0) {
-        return <div>내용0</div>
-    }
-    else if (tab==1) {
-        return <div>내용1</div>
-    }
-    else {
-        return <div>내용2</div>
-    }
+    useEffect(()=>{
+        setFade('tabEnd');
+
+        // clean up function
+        return ()=>{
+            setFade('');
+        }
+    }, [tab]); // tab이 변경될때마다 실행
+
+    return (
+        <div className={'tabStart '+fade}>
+            {
+                [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
+            }
+        </div>
+    )
 }
 
 
