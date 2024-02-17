@@ -16,7 +16,7 @@ function Home(props) {
                 {
                   props.shoes.map(function(data, index) {
                     return (
-                      <Card shoes={shoes[index]} imgSrc={'https://codingapple1.github.io/shop/shoes'+ (index+1) +'.jpg'}/>
+                      <Card shoes={props.shoes[index]} imgSrc={'https://codingapple1.github.io/shop/shoes'+ (index+1) +'.jpg'}/>
                     )
                   })
                 }
@@ -32,19 +32,10 @@ function Home(props) {
                 .then((result)=>{
                   console.log(result.data);
 
-                  result.data.forEach(item => {
-                    if(!shoes.some(shoe => shoe.id === item.id)) {
-                      shoes.push({
-                        id: item.id,
-                        title: item.title,
-                        content: item.content,
-                        price: item.price
-                      });
-                    }
-                  });
-                  
-                  setShoes(shoes);
-                  console.log(shoes);
+                  // axios의 경우, JSON 변환 과정 생략 가능하다
+                  // 기존 shoes에 없는 상품들만(id로 구별) 합치기
+                  let copy = [...props.shoes, ...result.data.filter(item => !props.shoes.some(shoe => shoe.id === item.id))];
+                  props.setShoes(copy);
                 })
                 .catch(()=>{
                   // ajax 요청이 실패했을 경우의 코드

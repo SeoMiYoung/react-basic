@@ -4,12 +4,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import data from './data.js';
 import Detail from './page/detail/Detail.js';
+import Home from './page/home/Home.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
-import bg from '../src/img/bg.png';
-import Card from '../src/component/Card/Card.js';
 
 function App() {
+  useEffect(()=>{
+    console.log("App이 랜더링 됩니다.");
+  });
+
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
 
@@ -29,45 +32,7 @@ function App() {
 
       {/* react-router-dom */}
       <Routes>
-        <Route path="/" element={
-          // 여기
-              <>
-                {/* 메인 백그라운드 이미지 */}
-                <div className="main-bg" style={{ backgroundImage: 'url('+bg+')'}}></div>
-  
-                {/* 상품 레이아웃 3개 만들기(Bootstrap 사용) */}
-                <div className="container">
-                  <div className="row">
-                    {
-                      shoes.map(function(data, index) {
-                        return (
-                          <Card shoes={shoes[index]} imgSrc={'https://codingapple1.github.io/shop/shoes'+ (index+1) +'.jpg'}/>
-                        )
-                      })
-                    }
-                  </div>
-                </div>
-  
-                {/* 버튼 만들기 Ajax 요청 */}
-                <button onClick={()=>{
-                  // ajax 이용한 GET요청은 axios.get('url')
-                  // ajax 요청에는 부가 정보들도 따라옴 (성공여부, 어디서 어떻게 왔는지..)
-                  // 새로고침 없이 데이터를 가져옴
-                  axios.get('https://codingapple1.github.io/shop/data2.json')
-                    .then((result)=>{
-                      console.log(result.data);
-  
-                      // axios의 경우, JSON 변환 과정 생략 가능하다
-                      // 기존 shoes에 없는 상품들만(id로 구별) 합치기
-                      let copy = [...shoes, ...result.data.filter(item => !shoes.some(shoe => shoe.id === item.id))];
-                      setShoes(copy);
-                    })
-                    .catch(()=>{
-                      // ajax 요청이 실패했을 경우의 코드
-                    })
-                }}>더보기</button>
-            </>
-        } />
+        <Route path="/" element={<Home shoes={shoes} setShoes={setShoes}/>} />
         <Route path="/detail/:id" element={<Detail shoes={shoes}/>} />
         <Route path="*" element={<div>없는 페이지 입니다.</div>} /> 
       </Routes>
