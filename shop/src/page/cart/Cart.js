@@ -1,7 +1,7 @@
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { setName, plusAge } from '../../store/userSlice.js';
-
+import { plusCount } from '../../store/userCart.js';
 
 function Cart() {
     // getState에는 Redux store에 있던 state가 남습니다
@@ -41,7 +41,7 @@ function Cart() {
                             <td>
                                 변경하기
                                 <button onClick={()=>{
-                                    dispatch(setName())
+                                    dispatch(plusCount(index))
                                 }}>+</button>
                             </td>
                         </tr>
