@@ -537,3 +537,14 @@ function TabContent({tab}) {
 }
 ```
 </details>
+
+<details>
+<summary>☑️ Context API</summary><br/>
+컴포넌트가 여러개 중첩되어 있으면 귀찮은 점이 있습니다. <br/>
+
+<img width="300px" src="https://github.com/SeoMiYoung/react-basic/assets/112063987/87fa38e4-1592-4d3d-b444-002cea429b8d" />
+
+이렇게 계속 props를 아래로 내려줘야하죠.. 이게 귀찮으면 Context API문법(리액트의 기본 문법)을 사용하거나 Redux같은 외부 라이브러리를 사용하면 됩니다.<br/>
+그러나 실제에서는 성능 이슈(쓸데없는 재렌더링) 및 컴포넌트 재활용이 어렵다는 이슈로 잘 사용하지는 않습니다. 
+
+</details>
