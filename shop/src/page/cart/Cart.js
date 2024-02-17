@@ -1,6 +1,14 @@
 import { Table } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 function Cart() {
+    // getState에는 Redux store에 있던 state가 남습니다
+    let getState = useSelector((state)=>{
+        return state
+    }) // Redux store 가져와줌
+    console.log(getState.user);
+    console.log(getState.stock);
+
     return (
         <div>
             <Table>
