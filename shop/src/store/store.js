@@ -12,13 +12,16 @@ let user = createSlice({ // useState랑 비슷한 용도
             // array나 object의 경우 직접 수정해도 state가 변경됩니다.
             // 왜냐면 Immer.js의 도움을 받아서(자동으로 설치되는 라이브러리)
             state.name = 'seo'
+        },
+        plusAge(state) {
+            state.age = state.age+1;
         }
     }
 })
 
 // user.actions하면 state 변경 함수들 남음
 // export 하고 싶은 함수명들을 넣어주면 됨
-export let { setName } = user.actions
+export let { setName, plusAge } = user.actions
 
 let userCart = createSlice({ // user가 장바구니에 추가한 상품들
     name : 'userCart',

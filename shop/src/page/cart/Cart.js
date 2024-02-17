@@ -1,6 +1,6 @@
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { setName } from '../../store/store';
+import { setName, plusAge } from '../../store/store';
 
 function Cart() {
     // getState에는 Redux store에 있던 state가 남습니다
@@ -13,8 +13,15 @@ function Cart() {
     return (
         <div>
             <h6>
-                {getState.user.name}의 장바구니
+                {getState.user.name}
+                {getState.user.age}
+                의 장바구니
             </h6>
+            <button onClick={(()=>{
+                dispatch(plusAge())
+            })}>
+                버튼
+            </button>
             <Table>
                 <thead>
                     <tr>
