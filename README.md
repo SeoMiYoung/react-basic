@@ -447,3 +447,14 @@ useEffect(()=>{
 }, [])
 ```
 </details>
+
+<details>
+<summary>☑️ Ajax</summary><br/>
+✔️ Ajax쓰려면 옵션 3개 중 택1<br/>
+1. XMLHttpRequest(옛날 자바스크립트 문법)<br/>
+2. fetch(요즘 자바스크립트 문법)<br/>
+3. Axios같은 외부 라이브러리 쓰거나..<br/>
+<br/>
+✔️ Axios<br/>
+코드 작성을 쫌 더 짧게 할 수 있습니다. 
+</details>
