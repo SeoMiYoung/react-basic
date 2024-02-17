@@ -17,6 +17,8 @@ function Detail(props) {
         return () => {
             // clean up function (기존 코드 싹 치운다)
             // ex. 기존 타이머는 싹 제거해주세요~
+            // 또는 기존 데이터 요청은 제거해주세요~
+            // [메모] clean up function은 mount시 실행안되고, unmount시 실행됨
             clearTimeout(timer); 
         }
     }, []); // 빈 배열을 전달하여 마운트 시에만 실행되도록 합니다
