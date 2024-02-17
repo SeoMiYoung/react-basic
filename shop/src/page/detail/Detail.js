@@ -9,9 +9,16 @@ function Detail(props) {
 
     useEffect(()=>{ // mount, update시 코드 실행해주는 useEffect
         // Detail 페이지 방문 후 2초 지나면 <div> 숨기기
-        const timer = setTimeout(() => {
+        let timer = setTimeout(() => {
             setVisible(false); // 2초 후에 상태를 false로 변경
         }, 2000);
+
+        // useEffect가 실행되기 전에 실행되는 return
+        return () => {
+            // clean up function (기존 코드 싹 치운다)
+            // ex. 기존 타이머는 싹 제거해주세요~
+            clearTimeout(timer); 
+        }
     }, []); // 빈 배열을 전달하여 마운트 시에만 실행되도록 합니다
     // []는 dependency로, useEffect의 실행 조건을 넣을 수 있습니다.
 
