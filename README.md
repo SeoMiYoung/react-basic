@@ -610,4 +610,7 @@ function Component() {
 - key와 value형태로 저장 가능<br/>
 - 최대 5MB의 문자 데이터만 저장 가능<br/>
 - user가 브라우저를 청소하지 않는 이상 반영구적으로 남아있음<br/>
+<br/>
+✔️ 모든 state를 localStorage에 자동 저장해주는 redux-persist<br/>
+리덕스를 쓰는 사람들은 redux-persist라는 외부 라이브러리를 사용하면 redux안에 있는 모든 state들을 자동으로 로컬 스토리지에 저장해줍니다. 물론 리덕스 뿐만 아니라 다른 전역 상태 관리(Jotai, Zustand)툴도 찾아보면 비슷한 기능들이 있습니다.
 </details>
