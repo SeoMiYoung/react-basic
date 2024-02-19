@@ -5,8 +5,15 @@ import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
 // import '../../App.css';
 import { Context1 } from '../../App.js';
+import { useDispatch, useSelector } from 'react-redux';
+import { plusProduct } from '../../store/userCart.js';
 
 function Detail(props) {
+    let getState = useSelector((state)=>{
+        return state;
+    });
+    let dispatch = useDispatch();
+
     let { storage, shoes } = useContext(Context1); // 보관함을 해체해주는 함수, object형식으로 남음
 
     let [visible, setVisible] = useState(true);
@@ -49,7 +56,10 @@ function Detail(props) {
                     <h4 className="pt-5">{product.title}</h4>
                     <p>{product.content}</p>
                     <p>{product.price}</p>
-                    <button className="btn btn-danger">주문하기</button> 
+                    <button className="btn btn-danger" onClick={()=>{
+                        // console.log(product.id);
+                        dispatch(plusProduct(product)); // 누른 상품의 product 정보 전달
+                    }}>주문하기</button> 
                 </div>
             </div>
 

@@ -41,8 +41,9 @@ function Cart() {
                             <td>
                                 변경하기
                                 <button onClick={()=>{
-                                    let i = getState.userCart.findIndex(item => item.id == getState.userCart[index].id);
-                                    dispatch(plusCount(i));
+                                    // 장바구니 상품마다의 고유 id정보를 이용해서 코드 짜기
+                                    // let i = getState.userCart.findIndex(item => item.id == getState.userCart[index].id);
+                                    dispatch(plusCount(getState.userCart[index].id));
                                 }}>+</button>
                             </td>
                         </tr>
