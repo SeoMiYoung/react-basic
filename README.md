@@ -593,3 +593,21 @@ function Component() {
 둘다 만약에 원하는 값을 발견하지 못하면, 마지막 값을 남겨줍니다.<br/>
 이것도 JSX안에서 사용할 수 있습니다.
 </details>
+
+<details>
+<summary>☑️ localStorage</summary><br/>
+🤔 브라우저를 새로고침 하면 왜 state가 초기값으로 돌아가나요ㅠㅠ?<br/>
+나도 정말 이게 너~~~무 궁금했어서 장바구니 페이지 만들 때 고민을 정말 많이 했는데, 원래 브라우저를 새로 고침하거나 재접속하면 html, js파일 등을 처음부터 다시 읽기 때문에 state도 초기값으로 다시 돌아갑니다. <br/>
+<br/>
+
+✔️ [해결 방법1] state를 서버로 보내서 DB에 영구 저장하기<br/>
+그리고 state가 필요해질때마다 DB에서 가져오기!<br/>
+근데 만약 나는 서버도 모르겠고, DB를 만드는 방법도 모르겠다면? --> 로컬 스토리지 사용하기<br/>
+
+✔️ [해결 방법2] Local Storage<br/>
+위치: 개발자도구 -> Application -> Storage -> Local Storage<br/>
+- 브라우저에서 제공하는 반영구적 저장소<br/>
+- key와 value형태로 저장 가능<br/>
+- 최대 5MB의 문자 데이터만 저장 가능<br/>
+- user가 브라우저를 청소하지 않는 이상 반영구적으로 남아있음<br/>
+</details>
