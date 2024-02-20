@@ -24,9 +24,9 @@ function App() {
 
   // react-query를 이용해서 ajax 요청을 해보자
   useQuery('작명', ()=>{
-    axios.get('https://codingapple1.github.io/userdata.json')
+    return axios.get('https://codingapple1.github.io/userdata.json')
       .then((a)=>{
-        a.data
+        return a.data
       })
   })
 
