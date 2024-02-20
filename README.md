@@ -641,5 +641,22 @@ function Component() {
   
 ```
 
+이런걸 react-query 안쓰고 그냥 하려고 했다면, 아마 state를 여러분들이 직접 만들어서 사용해야 했을거에요. <br/><br/>
+
+✔️ [장점2] 틈만나면 알아서 AJAX 재요청(refetch)을 해준다<br/>
+useQuery로 감싸주시면, useQuery안의 ajax요청은 틈만나면 자동으로 재요청됩니다.<b/>
+
+```
+// react-query를 이용해서 ajax 요청을 해보자
+  let result = useQuery('작명', ()=>{
+    return axios.get('https://codingapple1.github.io/userdata.json')
+      .then((a)=>{
+        return a.data
+      })
+  }
+)
+```
+
+✔️ [장점3] 실패 시 재시도를 알아서 해줍니다,<br/>
 
 </details>
