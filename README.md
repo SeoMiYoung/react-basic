@@ -614,3 +614,32 @@ function Component() {
 ✔️ 모든 state를 localStorage에 자동 저장해주는 redux-persist<br/>
 리덕스를 쓰는 사람들은 redux-persist라는 외부 라이브러리를 사용하면 redux안에 있는 모든 state들을 자동으로 로컬 스토리지에 저장해줍니다. 물론 리덕스 뿐만 아니라 다른 전역 상태 관리(Jotai, Zustand)툴도 찾아보면 비슷한 기능들이 있습니다.
 </details>
+
+<details>
+<summary>☑️ react-query</summary><br/>
+🤔 리액트 쿼리가 언제 필요하죠?<br/>
+서버랑 통신하는 기능들을 AJAX로 짜다보면, 응용기능들이 필요해질때가 있습니다. 예를 들자면.. AJAX 성공시/실패시 다른 UI를 보여주고 싶다면 어떻게 할건가요? 아니면 몇초마다 자동으로 AJAX를 요청하는 코드를 어떻게 작성하죠? 아니면 AJAX요청이 실패했을 때, 자동으로 몇초후에 AJAX요청을 재시도하려면요? 아니면 다음페이지의 내용을 미리 가져온다(prefetch)던지..이런 응용사항들은 잘 생각하면 알아서 코드를 짤 순 있긴 합니다. 그런데 이런것들이 귀찮다면, React Query라는 라이브러리를 가져다가 쓰면 됩니다. 그걸 가져다가 쓰면 적은 코드로 위와 같은 응용 기능들을 구현할 수 있습니다. 
+<br/>=> 그런데 솔직히 말하자면, 굳이 react-query를 쓸 일이 없습니다. <br/>
+=> 실시간 SNS를 만들 때처럼 실시간 데이터를 몇초마다 계속 가져와야하는 사이트들이 쓰면 유용합니다. (그러나 대부분의 사이트는 그러지 않습니다)
+<br/><br/>
+
+✔️ [장점1] ajax 성공/실패/로딩중을 변수 하나로 쉽게 파악이 가능하다<br/>
+
+```
+  // react-query를 이용해서 ajax 요청을 해보자
+  let result = useQuery('작명', ()=>{
+    return axios.get('https://codingapple1.github.io/userdata.json')
+      .then((a)=>{
+        return a.data
+      })
+  })
+
+  // result에는 이 ajax와 관련된 여러가지 유용한 정보들이 담겨있습니다.
+  console.log(result.data); // ajax요청이 성공했을때의 data가 담김
+  console.log(result.isLoading); // ajax요청이 로딩중일때 true가 될거임
+  console.log(result.error); // 이 ajax 요청이 실패했을 때 true가 될거임
+  
+```
+
+
+</details>
