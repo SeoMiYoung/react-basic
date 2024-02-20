@@ -878,3 +878,8 @@ function App(){
 let state = useDefferedValue(state); // 여기에 넣은 state(props)는 변동사항이 생겼을 때, 늦게 처리가 됩니다.
 ```
 </details>
+
+<details>
+<summary>☑️ PWA</summary><br/>
+Progressive Web App이라는 건데 이건 웹사이트를 안드로이드/ios 모바일 앱처럼 사용할 수 있게 만드는 일종의 웹개발 기술입니다. 웹사이트를 모바일 앱처럼 설치해서 쓸 수 있습니다. (일종의 사기..)<br/>
+</details>
