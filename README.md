@@ -871,7 +871,7 @@ function App(){
 }
 ```
 
-✔️ useDeferredValue<br/>
+(3) useDeferredValue<br/>
 그냥 useTransition하고 똑같은디요..
 
 ```
