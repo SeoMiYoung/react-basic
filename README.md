@@ -736,5 +736,145 @@ import { lazy, Suspense } from 'react'를 한다음에, Suspense 컴포넌트로
 
 그러면 Detail 페이지가 다 로드되기 전까지 유저는 로딩중임이라는 화면을 보게 됩니다. <br/><br/>
 
+✔️ 재렌더링을 막는 memo, useMemo<br/>
 
+```
+function Child() {
+  return <div>자식임</div>
+}
+
+function Parent() {
+  let [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <Child></Child>
+      <button onClick={()=>{ setCount(count+1) }}>+</button>
+    </div>
+  )
+)
+```
+
+지금 위의 예시를 보면, 버튼을 클릭했을때, 당연히 부모의 상태가 변하니깐 Parent가 계속 재랜더링되는데, Child 컴포넌트는 변하지도 않는데 계속 재랜더링 해야해서 비효율적이고 낭비인 걸 확인할 수 있습니다. 그래서 이럴 때 재렌더링을 막는 memo, useMemo를 쓸 수 있습니다.<br/><br/>
+
+(1) memo<br/>
+- Child로 전달되는 props가 변할때만 재렌더링 시켜줌<br/>
+- 그래서, 항상 Child는 랜더링되기 전에 이전 props와 현재 props를 비교하기 때문에 재랜더링 여부를 결정해서, 오히려 성능상 손해일수도 있습니다. 그래서 오히려 props가 길고 복잡하면 오히려 손해일수도 있습니다. 그러니, 꼭 필요한 무거운 컴포넌트에만 붙여보는게 좋습니다. 사실 대부분은 붙일 일이 없습니다.
+
+```
+import { memo } from "react";
+
+// memo로 해당 컴포넌트는 꼭 필요할때만 재랜더링 시켜주세요~~라는 의미임
+let Child = memo(function() {  // 이런식으로 해도 똑같이 컴포넌트가 생성됩니다
+  return <div>자식임</div>
+})
+
+function Parent() {
+  let [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <Child count={count}></Child>
+      <button onClick={()=>{ setCount(count+1) }}>+</button>
+    </div>
+  )
+)
+```
+
+(2) useMemo<br/>
+
+```
+function 반복() {
+  return 반복문 10억번 돌린 결과
+}
+
+function Cart() {
+  let result = 반복(); // Cart가 재랜더링 될때마다 10억번 맨날 계산해야함;;;;
+  .....
+}
+```
+
+그래서 다음과 같이 개선 가능합니다.
+
+```
+import { useMemo } from "react";
+
+function 반복() {
+  return 반복문 10억번 돌린 결과
+}
+
+function Cart() {
+  // useMemo안의 함수는 컴포넌트 렌더링 시 1회만 실행해줍니다.
+  let result = useMemo(()=>{return 함수()});
+  // 참고로, 얘도 dependency넣을 수 있습니다. useMemo(()=>{return 함수()}, [count])
+    // dependency를 넣을 경우 useEffect와의 차이점은 실행시점밖에 없음
+}
+```
+
+✔️ 리액트가 업데이트되고 나서 쓸 수 있는 신기능 3가지<br/>
+리액트 18버전 이후부터 렌더링 성능이 저하되는 컴포넌트에서 쓸 수 있는 혁신적인 기능이 추가되었습니다.<br/><br/>
+(1) batching<br/>
+state 변경을 연달아서 실행하면, 마지막 state 변경만 실행되는 걸 의미합니다.<br/>
+(리액트17) ajax, setTimeout 이런데 안에서 state1변경(); state2변경(); state3변경(); 이런다면, batching이 일어나지 않았으나, 리액트 18부터는 어디에서든지 automatic batching이 일어납니다.<br/>
+<br/>
+(2) useTransition<br/>
+동작이 느린 컴포넌트를 성능 향상시킬 수 있습니다. 다음은 재렌더링이 느린 컴포넌트 입니다. 유저가 타이핑 할때마다 저 엄청난 div태그가 10000번이나 재랜더링됩니다..브라우저는 멀티가 안되는데, 브라우저가 할 일이 많아서 멘붕와서 느려집니다. (1) a를 <input>에 보여주기, (2) <div>를 만개나 만들기...이거를 한번에 하려니 브라우저가 머리터지죠.
+
+```
+import {useState} from 'react'
+
+let a = new Array(10000).fill(0)
+
+function App(){
+  let [name, setName] = useState('')
+  
+  return (
+    <div>
+      <input onChange={ (e)=>{ setName(e.target.value) }}/>
+      {
+        a.map(()=>{
+          return <div>{name}</div>
+        })
+      }
+    </div>
+  )
+}
+```
+
+이걸 어떻게 바꿀 수 있을까요? startTransition안에 있는 코드를 약간 늦게 처리해줍니다. 그러면 (1)번이 끝난 후, 한가할 때 (2)를 하기 때문에 성능을 향상할 수 있습니다.
+
+```
+import {useState, useTransition} from 'react'
+
+let a = new Array(10000).fill(0)
+
+function App(){
+  let [name, setName] = useState('')
+  let [isPending, startTransition] = useTransition() // isPending은 startTransition이 아직 처리중일때 true로 변함
+  
+  return (
+    <div>
+      <input onChange={ (e)=>{ 
+        startTransition(()=>{ // startTransition으로 문제의 state 변경(지연의 원인) 감싸기
+          setName(e.target.value) 
+        })
+      }}/>
+
+      {
+        isPending ? '로딩중' :
+        a.map(()=>{
+          return <div>{name}</div>
+        })
+      }
+    </div>
+  )
+}
+```
+
+✔️ useDeferredValue<br/>
+그냥 useTransition하고 똑같은디요..
+
+```
+let state = useDefferedValue(state); // 여기에 넣은 state(props)는 변동사항이 생겼을 때, 늦게 처리가 됩니다.
+```
 </details>
