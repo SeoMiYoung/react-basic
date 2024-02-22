@@ -899,5 +899,56 @@ service-worker.js는 "나는 html/css/js를 미리 하드에 저장해놓을거�
 service-worker.js만들려면 index.js에서 serviceWorkerRegistration.unregister()를 serviceWorkingRegistration.register()로 바꿔야합니다. 물론 안바꿔도 이미 service.worker.js가 있지만 그건 단순 설정파일이고, 실제 service.worker.js파일은요 여러분이 바꾸고, 빌드(npm run build)할 때 생깁니다.<br/><br/>
 ✔️ 특정 파일들은 캐싱 안되게?<br/>
 사실 그러면 PWA를 쓰는 이유가 크게 없지만.. node_modules/react-scripts/config/webpack.config.js에서 injectmanifest 검색해서 조작 가능합니다.<br/>
+</details>
 
+<details>
+<summary>☑️ 자바스크립트에서 state 변경 함수 사용할 때 주의점: async</summary><br/>
+
+```
+function App(){
+  let [count, setCount] = useState(0);
+  let [age, setAge] = useState(20);
+
+  return (
+    <div>
+      <div>안녕하십니까 전 {age}</div>
+      <button onClick={()=>{
+        setCount(count+1);    // (1)
+        if(count < 3) {     // (2)
+          setAge(age+1);
+        }
+      }}>누르면한살먹기</button>
+    </div>
+  )
+
+}
+```
+
+위의 코드에서 원래 count가 3일때는 나이를 올려주지 말아야하는데, 지금은 count가 3일때도 age+1을 해주고 있습니다. 이런 문제는 바로, 자바스크립트는 일반적인 코드를 작성하면 synchronous(동기적, 순서대로 코드 처리)하게 처리되는데, ajax/이벤트리스너/setTimeout 이런 함수들을 쓸때는 asynchronous(비동기)하게 실행이 됩니다. 이런 함수들은 처리 시간이 오래걸립니다...<br/>
+state변경함수들은 죄다 비동기적으로 처리가 됩니다. 그래서 위의 예제에서는, 원래 동기적으로 작동된다면 (1)->(2) 순서대로 작동되어야하는데, setCount가 너무 실행되는데 처리 시간이 걸리다보니 우선적으로 (2)부터 하고 있느라, (2)->(1)처럼 되서, 버그가 생긴겁니다. 이럴때 해결할 수 있는 방법이 다음과 같이 코드를 변경하는 겁니다.
+
+```
+function App(){
+  let [count, setCount] = useState(0);
+  let [age, setAge] = useState(20);
+
+  useEffect(()=>{  // useEffect는 count라는 state가 변경되고 나서 실행이 됨
+    if (count != 0 && count < 3) { // useEffect는 처음 페이지가 로드될 때도 한번 실행이 되기 때문에 의도치 않은 버그 생길까봐 count!=0 조건 넣기
+      setAge(age+1);
+    }
+  }, [count]);
+
+  return (
+    <div>
+      <div>안녕하십니까 전 {age}</div>
+      <button onClick={()=>{
+        setCount(count+1);  
+      }}>누르면한살먹기</button>
+    </div>
+  )
+
+}
+```
+
+이러면 count라는 state가 변경되고나서 age도 변경해달라고 순차적으로 짤 수 있습니다.
 </details>
