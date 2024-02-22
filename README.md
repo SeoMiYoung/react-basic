@@ -956,6 +956,51 @@ function App(){
 <details>
 <summary>☑️ 리액트를 내가 만든 서버에서 사용하고 싶다면?</summary><br/>
 간단히 말하자면, 서버는 유저가 메인페이지로 접속하면, 리액트로 만든 html파일을 보내주면 그게 연동 끝입니다.<br/>
+<br/>
+✔️ node.js말고도 어떤 서버 언어를 쓰든간에 React를 적용하는 법은 모두 똑같습니다.<br/>
+<br/>
+✔️ node.js로 간단히 서버를 만들어봅시다.<br/>
+[step1] node.js 검색해서 설치<br/>
+[step2] 작업폴더 만들고 에디터로 오픈<br/>
+[step3] server.js 만들어서 다음 코드 넣기<br/>
+
+```
+const express = require('express');
+const path = require('path');
+const app = express();
+
+app.listen(8080, function () {
+  console.log('listening on 8080')
+}); 
+```
+
+[step4] 에디터 터미널 열어서 npm init -y 입력<br/>
+[step5] npm install express도 입력<br/>
+<br/>
+✔️ 서버와 리액트폴더 연결<br/>
+[step1] 우선 리액트 폴더에서 npm run build 하삼<br/>
+[step2] server.js 수정<br/>
+
+```
+const express = require('express');
+const path = require('path');
+const app = express();
+
+app.listen(8080, function () {
+  console.log('listening on 8080')
+});
+
+// [1] 해당 경로에 있는 static 파일들을 가져다가 쓰겠다고 선언
+app.use(express.static(path.join(__dirname, '어쩌구어쩌구/build')));
+
+// [2] 메인 페이지로 접속 시, '리액트로 만든 html 파일 경로'보여주세요~ 라고 하는거임
+app.get('/', function(요청, 응답) {
+  응답.sendFile(path.join(__dirname, '어쩌구어쩌구/build/index.html'));
+});
+```
+
+[step3] 노드를 한번 띄워보려면<br/>
+node server.js(또는 nodemon이 설치되어있다면 nodemon server.js)<br/>
 
 </details>
 
