@@ -1055,12 +1055,12 @@ app.get('/product', function(요청, 응답) {
 ```
 
 
-
+<br/>
 ✔️ 리액트 코드 수정할때마다 build해야하나요?<br/>
 그럴필요는 없고, 나중에 아마존, aws, google cloud 이렇게 웹서버에다가 올릴때만 한번 build하시면 됩니다. 평소 개발시엔 리액트도 localhost로 미리보기 띄워놓고, 서버도 localhost로 미리보기를 띄워두고 개발 진행하면 별 문제없습니다. 다만 '리액트->서버'로 ajax요청 시, '/product'이렇게 말고 'http://서버주소/product'이렇게 잘 입력하고, 서버에 cors 옵션을 잘 켜놓으면 됩니다. 서버의 주소를 입력하는게 귀찮으면 리액트에서 package.json이라는 파일을 열어서 proxy라는 부분 설정을 서버 미리보기 띄우던 localhost:어쩌구 주소로 설정해주면 됩니다. 그러면 리액트에서 ajax요청을 대충해도 localhost:어쩌구 주소로 ajax요청을 알아서 보내줍니다([참고]https://create-react-app.dev/docs/proxying-api-requests-in-development/).<br/><br/>
 
 ✔️ 서버에서 리액트 말고 일반 html파일도 필요하다면?<br/>
-그럴일은 거의 없습니다.<br/>
+찾아보면 방법은 있으나, 그럴일은 거의 없습니다.<br/>
 
 </details>
 
