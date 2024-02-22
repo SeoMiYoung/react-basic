@@ -952,3 +952,9 @@ function App(){
 
 이러면 count라는 state가 변경되고나서 age도 변경해달라고 순차적으로 짤 수 있습니다.
 </details>
+
+<details>
+<summary>☑️ 리액트를 내가 만든 서버에서 사용하고 싶다면?</summary><br/>
+간단히 말하자면, 서버는 유저가 메인페이지로 접속하면, 리액트로 만든 html파일을 보내주면 그게 연동 끝입니다.<br/>
+
+</details>
