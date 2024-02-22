@@ -1000,7 +1000,67 @@ app.get('/', function(요청, 응답) {
 ```
 
 [step3] 노드를 한번 띄워보려면<br/>
-node server.js(또는 nodemon이 설치되어있다면 nodemon server.js)<br/>
+node server.js(또는 nodemon이 설치되어있다면 nodemon server.js)<br/><br/>
+
+✔️ 리액트 라우터로 여러 페이지를 나눠놓았으면?<br/>
+원래 서버 안에서 라우팅("/detail로 접속하면 상세페이지로~ /about으로 접속하면 about페이지로~")할 수 있습니다. 그런데 이런것들은 React안에서도 할 수 있습니다. 바로, React안에서 React-Router를 사용하면 되는데, 그럴려면 추가적으로 작업이 필요합니다. 
+
+```
+// -----최하단에 작성-----
+// 모든 경로(*)에 대해서 혹시 그 경로가 서버에 기능개발이 안되어있다면, 해당 리액트 페이지를 보여주세요~ 누군가 /detail로 접속시 아마 리액트 라우터가 라우팅을 담당해줄겁니다.
+app.get('*', function(요청, 응답) {
+  응답.sendFile(path.join(__dirname, '어쩌구저쩌구/build/index.html'));
+});
+```
+<br/>
+✔️ DB의 데이터를 어떻게 리액트에서 보여줄까?<br/>
+서버에서 DB데이터를 뽑아서 보내주는 API를 작성해야합니다.<br/>
+그리고 리액트는 여기로 GET요청을 해서 가져오기만 하면 됩니다.<br/>
+<br/>
+예를 들어서 DB에서 글목록 데이터를 꺼내서 HTML로 보여주고 싶은 경우, SSR과 CSR중 하나를 택해야합니다.<br/>
+<table>
+  <tr>
+    <th>node.js강의처럼</th>
+    <td>
+      1. DB에서 데이터를 뽑기<br/>
+      2. 글목록.htnl 파일에 꽂아넣기<br/>
+      3. 그 완성된 html파일을 서버에게 보내주기(즉 SSR)<br/>
+    </td>
+  </tr>
+  <tr>
+    <th>리액트 처럼</th>
+    <td>
+      1. 리액트가 서버에 get요청으로 DB를 가져와서<br/>
+      2. 가져온걸로 html일 만들어서 보여줌(CSR)<br/>
+    </td>
+  </tr>
+</table>
+<br/>
+리액트를 사용하는 경우 보통 CSR을 사용합니다. 그래서 다음과 같이 코드를 짭니다.<br/>
+
+```
+// 상단에 3줄 추가
+// 이거 추가해야 ajax 잘됩니다.
+app.use(express.json()); // express.json()은 유저가 보낸 array/object 데이터를 출력해보기 위해 필요
+let cors = require('cors'); // cors라는 라이브러리 쓰려면 npm install cors를 터미널에 입력해야함
+// cors는 다른 도메인 주소끼리 ajax요청을 주고받을 때 필요
+app.use(cors());
+
+// ex. DB에 있던 상품명을 보여주려면?
+// 서버는 누군가 /product로 GET요청을 하면 DB에서 데이터 꺼내서 보내주라고 API를 짜놓습니다. 
+app.get('/product', function(요청, 응답) {
+  응답.json({name : 'black shoes'}); // 이러면 user한테 이 데이터를 쏘아줄 수 있게됨
+  // 그러면 이제 리액트 파일에서는, 상품 데이터가 필요할때마다 해당 경로로 get요청만 날리면 됩니다. 그러면 DB데이터를 수신해서 날려주는거임.
+});
+```
+
+
+
+✔️ 리액트 코드 수정할때마다 build해야하나요?<br/>
+그럴필요는 없고, 나중에 아마존, aws, google cloud 이렇게 웹서버에다가 올릴때만 한번 build하시면 됩니다. 평소 개발시엔 리액트도 localhost로 미리보기 띄워놓고, 서버도 localhost로 미리보기를 띄워두고 개발 진행하면 별 문제없습니다. 다만 '리액트->서버'로 ajax요청 시, '/product'이렇게 말고 'http://서버주소/product'이렇게 잘 입력하고, 서버에 cors 옵션을 잘 켜놓으면 됩니다. 서버의 주소를 입력하는게 귀찮으면 리액트에서 package.json이라는 파일을 열어서 proxy라는 부분 설정을 서버 미리보기 띄우던 localhost:어쩌구 주소로 설정해주면 됩니다. 그러면 리액트에서 ajax요청을 대충해도 localhost:어쩌구 주소로 ajax요청을 알아서 보내줍니다([참고]https://create-react-app.dev/docs/proxying-api-requests-in-development/).<br/><br/>
+
+✔️ 서버에서 리액트 말고 일반 html파일도 필요하다면?<br/>
+그럴일은 거의 없습니다.<br/>
 
 </details>
 
