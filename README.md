@@ -881,5 +881,112 @@ let state = useDefferedValue(state); // 여기에 넣은 state(props)는 변동�
 
 <details>
 <summary>☑️ PWA</summary><br/>
-Progressive Web App이라는 건데 이건 웹사이트를 안드로이드/ios 모바일 앱처럼 사용할 수 있게 만드는 일종의 웹개발 기술입니다. 웹사이트를 모바일 앱처럼 설치해서 쓸 수 있습니다. (일종의 사기..)<br/>
+Progressive Web App이라는 건데 이건 웹사이트를 안드로이드/ios 모바일 앱처럼 사용할 수 있게 만드는 일종의 웹개발 기술입니다. 웹사이트를 모바일 앱처럼 설치해서 쓸 수 있습니다. (일종의 사기..)<br/><br/>
+
+✔️ PWA가 셋팅된 리액트 프로젝트가 필요합니다.<br/>
+
+```
+npx create-react-app 프로젝트명 --template cra-template-pwa
+```
+
+✔️ manifest.json<br/>
+앱 설정파일<br/>
+이미지에 나와있는 정도 외에도 굉장히 많은것을 설정할 수 있습니다.<br/>
+<img src="https://github.com/SeoMiYoung/react-basic/assets/112063987/4ad03d5e-8bb3-4729-b5ce-1cc08dc7f53e" />
+<br/><br/>
+✔️ service-worker.js<br/>
+service-worker.js는 "나는 html/css/js를 미리 하드에 저장해놓을거야~ 그러니 사이트 접속할때마다 새로 html/css/js 다운받지말고 하드에 있던거 써~"라는 파일입니다. 이게 무슨소리냐면, 여러분이 오프라인 상태에서 카카오톡에 들어가도 뭐가 보이지만, 웹사이트 같은 경우는, 인터넷 연결이 안된다는 표시가 뜨고 안보인단 말이죠..? 그게 왜 그러냐면 여러분이 앱을 설치할 때, 앱 구동에 필요한 모든 파일들이 미리 하드에 저장되기 때문이에요. 그런데 웹 사이트는 아니잖아요? 그래서 service-worker는 여러분의 웹사이트를 오프라인에서도 열 수 있게 도와줍니다.<br/>
+service-worker.js만들려면 index.js에서 serviceWorkerRegistration.unregister()를 serviceWorkingRegistration.register()로 바꿔야합니다. 물론 안바꿔도 이미 service.worker.js가 있지만 그건 단순 설정파일이고, 실제 service.worker.js파일은요 여러분이 바꾸고, 빌드(npm run build)할 때 생깁니다.<br/><br/>
+✔️ 특정 파일들은 캐싱 안되게?<br/>
+사실 그러면 PWA를 쓰는 이유가 크게 없지만.. node_modules/react-scripts/config/webpack.config.js에서 injectmanifest 검색해서 조작 가능합니다.<br/>
+</details>
+
+<details>
+<summary>☑️ 자바스크립트에서 state 변경 함수 사용할 때 주의점: async</summary><br/>
+
+```
+function App(){
+  let [count, setCount] = useState(0);
+  let [age, setAge] = useState(20);
+
+  return (
+    <div>
+      <div>안녕하십니까 전 {age}</div>
+      <button onClick={()=>{
+        setCount(count+1);    // (1)
+        if(count < 3) {     // (2)
+          setAge(age+1);
+        }
+      }}>누르면한살먹기</button>
+    </div>
+  )
+
+}
+```
+
+위의 코드에서 원래 count가 3일때는 나이를 올려주지 말아야하는데, 지금은 count가 3일때도 age+1을 해주고 있습니다. 이런 문제는 바로, 자바스크립트는 일반적인 코드를 작성하면 synchronous(동기적, 순서대로 코드 처리)하게 처리되는데, ajax/이벤트리스너/setTimeout 이런 함수들을 쓸때는 asynchronous(비동기)하게 실행이 됩니다. 이런 함수들은 처리 시간이 오래걸립니다...<br/>
+state변경함수들은 죄다 비동기적으로 처리가 됩니다. 그래서 위의 예제에서는, 원래 동기적으로 작동된다면 (1)->(2) 순서대로 작동되어야하는데, setCount가 너무 실행되는데 처리 시간이 걸리다보니 우선적으로 (2)부터 하고 있느라, (2)->(1)처럼 되서, 버그가 생긴겁니다. 이럴때 해결할 수 있는 방법이 다음과 같이 코드를 변경하는 겁니다.
+
+```
+function App(){
+  let [count, setCount] = useState(0);
+  let [age, setAge] = useState(20);
+
+  useEffect(()=>{  // useEffect는 count라는 state가 변경되고 나서 실행이 됨
+    if (count != 0 && count < 3) { // useEffect는 처음 페이지가 로드될 때도 한번 실행이 되기 때문에 의도치 않은 버그 생길까봐 count!=0 조건 넣기
+      setAge(age+1);
+    }
+  }, [count]);
+
+  return (
+    <div>
+      <div>안녕하십니까 전 {age}</div>
+      <button onClick={()=>{
+        setCount(count+1);  
+      }}>누르면한살먹기</button>
+    </div>
+  )
+
+}
+```
+
+이러면 count라는 state가 변경되고나서 age도 변경해달라고 순차적으로 짤 수 있습니다.
+</details>
+
+<details>
+<summary>☑️ 리액트를 내가 만든 서버에서 사용하고 싶다면?</summary><br/>
+간단히 말하자면, 서버는 유저가 메인페이지로 접속하면, 리액트로 만든 html파일을 보내주면 그게 연동 끝입니다.<br/>
+
+</details>
+
+<details>
+<summary>☑️ React를 마치며..</summary><br/>
+✔️ 서버기능을 추가로 생각해보세요.<br/>
+서버기능까지 추가하고 싶으면 Node.js + Express 아니면 Firebase 같은걸로 쉽게 서버기능까지 추가해볼 수도 있겠으며 귀찮으면 json파일 어디 올려서 GET요청해서 서버랑 통신하듯 데이터를 가져오는 것도 괜찮겠습니다. 참고로 게시판, 로그인 기능, 상품 업로드 기능같은 실제 웹 기능은 서버 기능이 필요합니다. 리액트는 HTML만드는 라이브러리라 사실상 그런 기능을 구현하는 것과는 아무 상관이 없습니다.<br/>
+<br/>
+✔️ 리액트랑 자바스크립트 문법 잘 안다고 웹개발 잘하는거 아닙니다.<br/>
+항상 브라우저 기본 기능과 API를 잘 알아야 실제 웹개발을 잘하는 사람이 됩니다. 기타 ES6문법들(async, await, promise, iterator)도 많으니 웹 개발 실력을 향상시키고 싶다면 리액트 말고 주변 것들도 공부하도록 합시다. 그런데 이런건 멋진 개인프로젝트 하다보면 자연스레 배우게 됩니다.<br/>
+<br/>
+✔️ 다른 툴도 재밌습니다.<br/>
+Vue.js는 리액트랑 같은 기능을 제공하는데 모든게 더 쉽습니다. Redux같은것도 100만배 더 쉽습니다. 아니면 순수 HTML/CSS 비슷하게 코드를 짜고 싶으면 Svelte도 있습니다. 리액트가 좋다면, 리액트 문법으로 서버까지 풀스택 개발이 가능한 Next.js도 있습니다. 자바스크립트 가득한 리액트가 매우 귀찮으면 최근 핫해진 HTMX도 있습니다. <br/><br/>
+✔️ 타입스크립트<br/>
+Vue 3버전부터는 타입스크립트 기본 지원이고 <br/>
+Angular는 이미 오래 전부터 타입스크립트 강제로 쓰라고 요구하고 <br/>
+React 주요 라이브러리도 타입스크립트를 지원하고 있습니다. <br/>
+코드가 약간 암호문같아지는데 적응하면 별거아닙니다.
+<br><br/>
+✔️ 포토폴리오 만들때 참고 글<br/>
+https://codingapple.com/to-make-a-portfolio/<br/>
+(1) 주제 고민<br/>
+- 요즘은 OpenAI 사이트 가면 GPT 답변을 쉽게 얻을 수 있는 API도 있는데(유료이긴 함..) 그런걸로 AI서비스 만들어봐도 재밌어보입니다. <br/>
+- 공공데이터 API를 가지고 유용한 현실에 도움되는 서비스를 만들어보는 것도 좋습니다. <br/>
+<br/>
+(2) 내용 고민<br/>
+- 포토폴리오는 내가 가진 전문성을 보여주는 역할을 해야하기 때문에 기업 입장에서 많이 찾는 기술들을 강제로 집어넣는게 중요합니다. <br/>
+- 프론트엔드의 경우 React, Redux, Typescript, ajax, react-query, next.js같은 내용을 선호합니다. 만든 서버가 없어서 ajax를 사용할 수 없으면 따로 .json파일 같은 걸 만들어서 어디에 올려놓고 그걸 ajax요청으로 가져와봅시다.<br/>
+- 백엔드의 경우 데이터베이스 읽기,쓰기,수정,삭제 기능/파일업로드/회원기능/라우터기능/검색기능/validation기능/페이지네이션/에러나 예외처리/채팅기능/클라우드 배포등의 기능들을 필요없어도 일부러 집어넣으면 좋습니다.<br/>
+<br/>
+(3) 마무리<br/>
+- 자기소개 사이트도 따로 만드시는 분들이 있는데 기특하긴 하지만 구성이 더럽고 디자인이 쓰레기같으면 오히려 단점이라 자기소개는 notion 같은 곳에 작성해놓는 것도 좋습니다.<br/>
+- 블로그를 하나 만들어서 거기에 포토폴리오 만들면서 어려웠던 점, 새로 배웠던 점을 기록해두도록 합시다. 사람들 잘 모르는 최신기술 같은 것도 많이 기록해두면 코딩에 관심많고 기특해보입니다.
 </details>
