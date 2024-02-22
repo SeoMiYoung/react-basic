@@ -23,25 +23,30 @@ function App() {
   let navigate = useNavigate();
 
   // react-query를 이용해서 ajax 요청을 해보자
-  useQuery('작명', ()=>{
+  let result = useQuery('작명', ()=>{
     return axios.get('https://codingapple1.github.io/userdata.json')
       .then((a)=>{
+        console.log('요청됨')
         return a.data
       })
-  })
+  }, { staleTime : 5000 })
 
   return (
     <div className="App">
       {/* 참고로 Bootstrap에서 가져온것도 컴포넌트에 className을 붙혀서 추가로 커스텀할 수 있음 */}
       {/* 아래 Navbar도 공용 컴포넌트로 빼낼 수 있을 듯. 근데 귀찮아서 안함. */}
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="light" variant="light">
         <Container>
-        <Navbar.Brand href="#home">Ming's Shoe Shop</Navbar.Brand>
-        <Nav className="me-auto">
-          <Nav.Link onClick={()=>{ navigate('/') }}>Home</Nav.Link>
-          <Nav.Link onClick={()=>{ navigate('/cart') }}>Cart</Nav.Link>
-        </Nav>
-        <Nav className="ms-auto">반가워요 Seo</Nav>
+          <Navbar.Brand href="#home">Ming's Shoe Shop</Navbar.Brand>
+          <Nav className="me-auto">
+            <Nav.Link onClick={()=>{ navigate('/') }}>Home</Nav.Link>
+            <Nav.Link onClick={()=>{ navigate('/cart') }}>Cart</Nav.Link>
+          </Nav>
+          <Nav className="ms-auto">
+            { result.isLoading && '로딩중' }
+            { result.error && '에러남'}
+            { result.data && result.data.name }
+          </Nav>
         </Container>
       </Navbar>
 
