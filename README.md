@@ -881,5 +881,23 @@ let state = useDefferedValue(state); // 여기에 넣은 state(props)는 변동�
 
 <details>
 <summary>☑️ PWA</summary><br/>
-Progressive Web App이라는 건데 이건 웹사이트를 안드로이드/ios 모바일 앱처럼 사용할 수 있게 만드는 일종의 웹개발 기술입니다. 웹사이트를 모바일 앱처럼 설치해서 쓸 수 있습니다. (일종의 사기..)<br/>
+Progressive Web App이라는 건데 이건 웹사이트를 안드로이드/ios 모바일 앱처럼 사용할 수 있게 만드는 일종의 웹개발 기술입니다. 웹사이트를 모바일 앱처럼 설치해서 쓸 수 있습니다. (일종의 사기..)<br/><br/>
+
+✔️ PWA가 셋팅된 리액트 프로젝트가 필요합니다.<br/>
+
+```
+npx create-react-app 프로젝트명 --template cra-template-pwa
+```
+
+✔️ manifest.json<br/>
+앱 설정파일<br/>
+이미지에 나와있는 정도 외에도 굉장히 많은것을 설정할 수 있습니다.<br/>
+<img src="https://github.com/SeoMiYoung/react-basic/assets/112063987/4ad03d5e-8bb3-4729-b5ce-1cc08dc7f53e" />
+<br/><br/>
+✔️ service-worker.js<br/>
+service-worker.js는 "나는 html/css/js를 미리 하드에 저장해놓을거야~ 그러니 사이트 접속할때마다 새로 html/css/js 다운받지말고 하드에 있던거 써~"라는 파일입니다. 이게 무슨소리냐면, 여러분이 오프라인 상태에서 카카오톡에 들어가도 뭐가 보이지만, 웹사이트 같은 경우는, 인터넷 연결이 안된다는 표시가 뜨고 안보인단 말이죠..? 그게 왜 그러냐면 여러분이 앱을 설치할 때, 앱 구동에 필요한 모든 파일들이 미리 하드에 저장되기 때문이에요. 그런데 웹 사이트는 아니잖아요? 그래서 service-worker는 여러분의 웹사이트를 오프라인에서도 열 수 있게 도와줍니다.<br/>
+service-worker.js만들려면 index.js에서 serviceWorkerRegistration.unregister()를 serviceWorkingRegistration.register()로 바꿔야합니다. 물론 안바꿔도 이미 service.worker.js가 있지만 그건 단순 설정파일이고, 실제 service.worker.js파일은요 여러분이 바꾸고, 빌드(npm run build)할 때 생깁니다.<br/><br/>
+✔️ 특정 파일들은 캐싱 안되게?<br/>
+사실 그러면 PWA를 쓰는 이유가 크게 없지만.. node_modules/react-scripts/config/webpack.config.js에서 injectmanifest 검색해서 조작 가능합니다.<br/>
+
 </details>
