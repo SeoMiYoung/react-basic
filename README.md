@@ -1,5 +1,5 @@
 # 📢 레포지토리 설명
-리액트 공부
+리액트 공부 (코딩애플 리액트 강의로 학습중..)
 
 # 🗓️ 공부 기간
 2024.02.10 ~<br/>
@@ -613,4 +613,273 @@ function Component() {
 <br/>
 ✔️ 모든 state를 localStorage에 자동 저장해주는 redux-persist<br/>
 리덕스를 쓰는 사람들은 redux-persist라는 외부 라이브러리를 사용하면 redux안에 있는 모든 state들을 자동으로 로컬 스토리지에 저장해줍니다. 물론 리덕스 뿐만 아니라 다른 전역 상태 관리(Jotai, Zustand)툴도 찾아보면 비슷한 기능들이 있습니다.
+</details>
+
+<details>
+<summary>☑️ react-query</summary><br/>
+🤔 리액트 쿼리가 언제 필요하죠?<br/>
+서버랑 통신하는 기능들을 AJAX로 짜다보면, 응용기능들이 필요해질때가 있습니다. 예를 들자면.. AJAX 성공시/실패시 다른 UI를 보여주고 싶다면 어떻게 할건가요? 아니면 몇초마다 자동으로 AJAX를 요청하는 코드를 어떻게 작성하죠? 아니면 AJAX요청이 실패했을 때, 자동으로 몇초후에 AJAX요청을 재시도하려면요? 아니면 다음페이지의 내용을 미리 가져온다(prefetch)던지..이런 응용사항들은 잘 생각하면 알아서 코드를 짤 순 있긴 합니다. 그런데 이런것들이 귀찮다면, React Query라는 라이브러리를 가져다가 쓰면 됩니다. 그걸 가져다가 쓰면 적은 코드로 위와 같은 응용 기능들을 구현할 수 있습니다. 
+<br/>=> 그런데 솔직히 말하자면, 굳이 react-query를 쓸 일이 없습니다. <br/>
+=> 실시간 SNS를 만들 때처럼 실시간 데이터를 몇초마다 계속 가져와야하는 사이트들이 쓰면 유용합니다. (그러나 대부분의 사이트는 그러지 않습니다)
+<br/><br/>
+
+✔️ [장점1] ajax 성공/실패/로딩중을 변수 하나로 쉽게 파악이 가능하다<br/>
+
+```
+  // react-query를 이용해서 ajax 요청을 해보자
+  let result = useQuery('작명', ()=>{
+    return axios.get('https://codingapple1.github.io/userdata.json')
+      .then((a)=>{
+        return a.data
+      })
+  })
+
+  // 중괄호랑 return은 묶어서 생략 가능합니다.(아래 코드는 위와 동일합니다.)
+  let result = useQuery('작명', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json')
+      .then((a)=>{
+        return a.data
+      })
+  )
+
+  // result에는 이 ajax와 관련된 여러가지 유용한 정보들이 담겨있습니다.
+  console.log(result.data); // ajax요청이 성공했을때의 data가 담김
+  console.log(result.isLoading); // ajax요청이 로딩중일때 true가 될거임
+  console.log(result.error); // 이 ajax 요청이 실패했을 때 true가 될거임
+  
+```
+
+이런걸 react-query 안쓰고 그냥 하려고 했다면, 아마 state를 여러분들이 직접 만들어서 사용해야 했을거에요. <br/><br/>
+
+✔️ [장점2] 틈만나면 알아서 AJAX 재요청(refetch)을 해준다<br/>
+useQuery로 감싸주시면, useQuery(react-query라는 라이브러리가 제공하는 기본 함수)안의 ajax요청은 틈만나면 자동으로 재요청됩니다.<br/>
+
+```
+// react-query를 이용해서 ajax 요청을 해보자
+let result = useQuery('작명', ()=>{
+  return axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{
+      return a.data
+    })
+  }
+)
+
+// staleTime
+// 5초 안에는 재접속을 해도 refetch가 되지 않는 기능 추가 가능
+let result = useQuery('작명', ()=>{
+  return axios.get('https://codingapple1.github.io/userdata.json')
+    .then((a)=>{
+      console.log('요청됨')
+      return a.data
+    })
+  }, { staleTime : 5000 }
+)
+```
+<br/>
+✔️ [장점3] 실패 시 재시도를 알아서 해준다<br/>
+서버가 죽었거나, 경로가 잘못되었을 경우 등 문제가 생겼을때 ajax요청을 알아서 3~4번 재시도를 해줍니다.<br/><br/>
+
+✔️ [장점4] ajax로 가져온 결과는 state 공유가 필요없다<br/>
+만약에 부모 컴포넌트와 자식 컴포넌트 모두 A라는 데이터를 필요했을 때, 물론 부모가 자식한테 props로 전달해서 사용할수도 있지만, 부모 컴포넌트에서도 ajax요청해서 A가져오고, 자식 컴포넌트에서도 ajax요청해서 A가져올 수 있습니다. 후자의 경우, 의문점이 들 수 있는데, ajax요청을 똑같은 곳으로 하는 코드가 두군데나 있어서 비효율적인거 아니야?하고 걱정할 수도 있는데, 리액트 쿼리는 똑똑해서 똑같은 곳으로 두번이나 요청하지 않습니다. 아마 합쳐서 한번에 처리를 해줄겁니다. 그래서 그냥 props전송할 거 없이 ajax요청하는 코드 한줄 더 적으면 되는거에요. 즉, ajax요청을 한군데에만 하든, 두군데에서 하든 요청 횟수는 일치하다.<br/><br/>
+그리고 캐싱이라는 기능이 있는데, ajax성공 결과를 5분동안 기억해둡니다. 그래서 만약에 똑같은 경로로 ajax요청하는 코드가 실행이 된다면 5분전에 이미 요청했던 결과를 우선적으로 보여줍니다. 그다음에 ajax요청을 수행할거에요. 그러면 약간 빠른 느낌을 줄 수 있습니다. <br/><br/>
+
+✔️ RTK Query<br/>
+redux-toolkit을 설치하면 RTK Query도 자동설치됩니다. 이거 가져다가 쓰시면 리액트 쿼리랑 유사한데, 문법이 드러워서 그냥 리액트 쿼리 쓰는게 낫습니다..
+</details>
+
+<details>
+<summary>☑️ 성능개선</summary><br/>
+✔️ React Developer Tools (크롬 확장 프로그램)<br/>
+  
+![image](https://github.com/SeoMiYoung/react-basic/assets/112063987/4fd4b9d4-53a2-43d4-8e80-2bac1c2b61a2)
+<br/>
+- [개발자 도구] Components 탭 --> 여러분들의 사이트의 컴포넌트를 구조화시켜줌 (디버깅 하기가 쉬울수도)<br/>
+현재 선택한 것에 해당된 컴포넌트도 알려주고, props, hooks등등 여러 정보를 알려줍니다.<br/>
+
+- [개발자 도구] Profiler 탭 --> 성능저하되는 컴포넌트 범인 찾기<br/>
+녹화버튼 누르고 페이지를 막 이리저리 이 페이지 저페이지 막 눌러봐. 녹화를 멈추면, 컴포넌트마다 몇초에 걸처서 렌더링 되었는지 확인해볼 수 있습니다. 그런데 실은 여러분의 컴포넌트 렌더링 시간은 보통 엄청 빠릅니다. 보통 웹사이트에서 지연을 발생시키는 원인은 서버에서 데이터가 늦게와서입니다. 이건 사실상...서버문제지, 프론트엔드 문제는 아닙니다..그러니 너무 걱정 마세요!
+<br/><br/>
+
+✔️ Redux DevTools (크롬 확장 프로그램)<br/>
+리덕스 관련 탭을 개발자도구에서 열 수 있습니다.<br/>
+store를 한 눈에 보여주고, state 변경한 내역을 알려줍니다.<br/>
+<br/>
+
+✔️ lazy import<br/>
+리액트로 개발한 사이트들은 기본적으로 SPA(Single Page Application)입니다. SPA의 특징이 뭐냐면, 이 웹사이트를 서버에 올려서 발행을 하면, 하나의 큰 JS파일과 HTML, CSS파일이 있을거에요. 이것들을 서버에 올리면 되는데, 하나의 JS파일에 정말 모든 걸 다 때려넣기 때문에 사이즈가 매우 클 수 밖에 없습니다. 그래서 유저가 메인페이지에 접속했을 때, 커다란 JS파일을 다운받아야하기 때문에 로딩속도가 쫌 느립니다.. 하나의 큰 자바스크립트 파일때문에 그런데요, 이 JS를 잘게 분할하고 싶다면??<br/><br/>
+=> 그래서 우선적으로 필요하지 않은 컴포넌트의 경우 lazy하게 로딩하라고 코드를 짤 수 있습니다. 그러면 아마 lazy loading한 건 별도의 js파일로 생성될거에요. <br/>
+
+```
+// 해당 컴포넌트가 필요해지면 import 시켜주세요~
+const Detail = lazy(() => import('./routes/Detail.js'));
+const Cart = lazy(() => import('./routes/Cart.js'));
+
+// -> 그러나 Detail, Cart 페이지 접속 시 지연시간이 있을 수 있다는 단점이 있음...로딩 중 UI를 넣으면 됨!
+```
+
+✔️ 로딩 중 UI를 어떻게 넣을까?<br/>
+import { lazy, Suspense } from 'react'를 한다음에, Suspense 컴포넌트로 Detail과 Cart를 감싸면 됩니다. <br/>
+
+```
+<Route path="/detail/:id" element={
+  <Suspense fallback={<div>로딩중임</div>}>
+    <Detail shoes={shoes}/>
+  </Suspense>
+} />
+
+// 근데 사실 대부분 라우트 안에 있는 모든 컴포넌트들을 lazy loading하기 때문에 그냥 Routes전체를 Suspense로 묶는편임
+<Suspense fallback={<div>로딩중임</div>}>
+  <Routes>
+  </Routes>
+</Suspense>
+```
+
+그러면 Detail 페이지가 다 로드되기 전까지 유저는 로딩중임이라는 화면을 보게 됩니다. <br/><br/>
+
+✔️ 재렌더링을 막는 memo, useMemo<br/>
+
+```
+function Child() {
+  return <div>자식임</div>
+}
+
+function Parent() {
+  let [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <Child></Child>
+      <button onClick={()=>{ setCount(count+1) }}>+</button>
+    </div>
+  )
+)
+```
+
+지금 위의 예시를 보면, 버튼을 클릭했을때, 당연히 부모의 상태가 변하니깐 Parent가 계속 재랜더링되는데, Child 컴포넌트는 변하지도 않는데 계속 재랜더링 해야해서 비효율적이고 낭비인 걸 확인할 수 있습니다. 그래서 이럴 때 재렌더링을 막는 memo, useMemo를 쓸 수 있습니다.<br/><br/>
+
+(1) memo<br/>
+- Child로 전달되는 props가 변할때만 재렌더링 시켜줌<br/>
+- 그래서, 항상 Child는 랜더링되기 전에 이전 props와 현재 props를 비교하기 때문에 재랜더링 여부를 결정해서, 오히려 성능상 손해일수도 있습니다. 그래서 오히려 props가 길고 복잡하면 오히려 손해일수도 있습니다. 그러니, 꼭 필요한 무거운 컴포넌트에만 붙여보는게 좋습니다. 사실 대부분은 붙일 일이 없습니다.
+
+```
+import { memo } from "react";
+
+// memo로 해당 컴포넌트는 꼭 필요할때만 재랜더링 시켜주세요~~라는 의미임
+let Child = memo(function() {  // 이런식으로 해도 똑같이 컴포넌트가 생성됩니다
+  return <div>자식임</div>
+})
+
+function Parent() {
+  let [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <Child count={count}></Child>
+      <button onClick={()=>{ setCount(count+1) }}>+</button>
+    </div>
+  )
+)
+```
+
+(2) useMemo<br/>
+
+```
+function 반복() {
+  return 반복문 10억번 돌린 결과
+}
+
+function Cart() {
+  let result = 반복(); // Cart가 재랜더링 될때마다 10억번 맨날 계산해야함;;;;
+  .....
+}
+```
+
+그래서 다음과 같이 개선 가능합니다.
+
+```
+import { useMemo } from "react";
+
+function 반복() {
+  return 반복문 10억번 돌린 결과
+}
+
+function Cart() {
+  // useMemo안의 함수는 컴포넌트 렌더링 시 1회만 실행해줍니다.
+  let result = useMemo(()=>{return 함수()});
+  // 참고로, 얘도 dependency넣을 수 있습니다. useMemo(()=>{return 함수()}, [count])
+    // dependency를 넣을 경우 useEffect와의 차이점은 실행시점밖에 없음
+}
+```
+
+✔️ 리액트가 업데이트되고 나서 쓸 수 있는 신기능 3가지<br/>
+리액트 18버전 이후부터 렌더링 성능이 저하되는 컴포넌트에서 쓸 수 있는 혁신적인 기능이 추가되었습니다.<br/><br/>
+(1) batching<br/>
+state 변경을 연달아서 실행하면, 마지막 state 변경만 실행되는 걸 의미합니다.<br/>
+(리액트17) ajax, setTimeout 이런데 안에서 state1변경(); state2변경(); state3변경(); 이런다면, batching이 일어나지 않았으나, 리액트 18부터는 어디에서든지 automatic batching이 일어납니다.<br/>
+<br/>
+(2) useTransition<br/>
+동작이 느린 컴포넌트를 성능 향상시킬 수 있습니다. 다음은 재렌더링이 느린 컴포넌트 입니다. 유저가 타이핑 할때마다 저 엄청난 div태그가 10000번이나 재랜더링됩니다..브라우저는 멀티가 안되는데, 브라우저가 할 일이 많아서 멘붕와서 느려집니다. (1) a를 <input>에 보여주기, (2) <div>를 만개나 만들기...이거를 한번에 하려니 브라우저가 머리터지죠.
+
+```
+import {useState} from 'react'
+
+let a = new Array(10000).fill(0)
+
+function App(){
+  let [name, setName] = useState('')
+  
+  return (
+    <div>
+      <input onChange={ (e)=>{ setName(e.target.value) }}/>
+      {
+        a.map(()=>{
+          return <div>{name}</div>
+        })
+      }
+    </div>
+  )
+}
+```
+
+이걸 어떻게 바꿀 수 있을까요? startTransition안에 있는 코드를 약간 늦게 처리해줍니다. 그러면 (1)번이 끝난 후, 한가할 때 (2)를 하기 때문에 성능을 향상할 수 있습니다.
+
+```
+import {useState, useTransition} from 'react'
+
+let a = new Array(10000).fill(0)
+
+function App(){
+  let [name, setName] = useState('')
+  let [isPending, startTransition] = useTransition() // isPending은 startTransition이 아직 처리중일때 true로 변함
+  
+  return (
+    <div>
+      <input onChange={ (e)=>{ 
+        startTransition(()=>{ // startTransition으로 문제의 state 변경(지연의 원인) 감싸기
+          setName(e.target.value) 
+        })
+      }}/>
+
+      {
+        isPending ? '로딩중' :
+        a.map(()=>{
+          return <div>{name}</div>
+        })
+      }
+    </div>
+  )
+}
+```
+
+(3) useDeferredValue<br/>
+그냥 useTransition하고 똑같은디요..
+
+```
+let state = useDefferedValue(state); // 여기에 넣은 state(props)는 변동사항이 생겼을 때, 늦게 처리가 됩니다.
+```
+</details>
+
+<details>
+<summary>☑️ PWA</summary><br/>
+Progressive Web App이라는 건데 이건 웹사이트를 안드로이드/ios 모바일 앱처럼 사용할 수 있게 만드는 일종의 웹개발 기술입니다. 웹사이트를 모바일 앱처럼 설치해서 쓸 수 있습니다. (일종의 사기..)<br/>
 </details>
